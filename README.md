@@ -1,4 +1,4 @@
-# visual_computing_systems
+# Benchmarking the True Inference Speed of Video Generation Models
 
 ## Team
 Jenny Jin (yqjin)  
