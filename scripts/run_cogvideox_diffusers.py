@@ -47,8 +47,9 @@ def main() -> None:
     dtype = torch.float16 if torch.cuda.is_available() else torch.float32
     pipe = CogVideoXPipeline.from_pretrained(args.model_id, torch_dtype=dtype)
     if torch.cuda.is_available():
-        pipe.to("cuda")
         pipe.enable_model_cpu_offload()
+        pipe.vae.enable_tiling()
+        pipe.vae.enable_slicing()
         torch.cuda.reset_peak_memory_stats()
     else:
         pipe.enable_model_cpu_offload()

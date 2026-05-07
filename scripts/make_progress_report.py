@@ -15,6 +15,13 @@ LEFT = 70
 RIGHT = 30
 TOP = 40
 BOTTOM = 60
+BASELINE_COLORS = {
+    "white": "#7f7f7f",
+    "black": "#000000",
+    "static_frame": "#9467bd",
+    "noise": "#ff7f0e",
+    "moving_square": "#2ca02c",
+}
 
 
 def load_csv(path: Path) -> list[dict]:
@@ -40,6 +47,10 @@ def point_position(row: dict, max_latency: float, max_quality: float) -> tuple[f
     return x, y
 
 
+def baseline_color(name: str) -> str:
+    return BASELINE_COLORS.get(name, "#1f77b4")
+
+
 def write_latency_quality_plot(metrics: list[dict], frontier: list[dict], out_path: Path) -> None:
     max_latency = max(as_float(row, "latency_seconds") for row in metrics)
     max_quality = max(1.0, max(as_float(row, "quality_proxy") for row in metrics))
@@ -54,10 +65,14 @@ def write_latency_quality_plot(metrics: list[dict], frontier: list[dict], out_pa
         f'<line x1="{LEFT}" y1="{TOP}" x2="{LEFT}" y2="{x_axis}" stroke="black"/>',
         f'<text x="{PLOT_WIDTH/2-45}" y="{PLOT_HEIGHT-18}" font-family="Arial" font-size="13">latency (s)</text>',
         '<text x="14" y="280" transform="rotate(-90 14 280)" font-family="Arial" font-size="13">quality proxy</text>',
-        '<circle cx="650" cy="45" r="5" fill="#1f77b4"/><text x="662" y="49" font-family="Arial" font-size="12">valid</text>',
-        '<circle cx="710" cy="45" r="5" fill="#b0b0b0"/><text x="722" y="49" font-family="Arial" font-size="12">invalid</text>',
-        '<circle cx="780" cy="45" r="6" fill="white" stroke="black"/><text x="792" y="49" font-family="Arial" font-size="12">frontier</text>',
     ]
+
+    for index, (name, color) in enumerate(BASELINE_COLORS.items()):
+        y = 48 + index * 22
+        svg.append(f'<circle cx="650" cy="{y}" r="5" fill="{color}" stroke="black"/>')
+        svg.append(f'<text x="664" y="{y+4}" font-family="Arial" font-size="12">{name}</text>')
+    svg.append('<circle cx="650" cy="164" r="6" fill="white" stroke="black" stroke-width="2"/>')
+    svg.append('<text x="664" y="168" font-family="Arial" font-size="12">frontier</text>')
 
     for value in [0, max_latency / 2, max_latency]:
         x = LEFT + (value / max_latency) * (PLOT_WIDTH - LEFT - RIGHT) if max_latency else LEFT
@@ -69,12 +84,12 @@ def write_latency_quality_plot(metrics: list[dict], frontier: list[dict], out_pa
 
     for row in metrics:
         x, y = point_position(row, max_latency, max_quality)
-        valid = row["valid_video"] == "true"
         is_frontier = row["run_id"] in frontier_ids
-        fill = "#1f77b4" if valid else "#b0b0b0"
-        stroke = "black" if is_frontier else "white"
+        fill = baseline_color(row["model"])
+        stroke = "black" if is_frontier else fill
         radius = 6 if is_frontier else 4
-        svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius}" fill="{fill}" stroke="{stroke}"/>')
+        width = 2 if is_frontier else 1
+        svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="{width}"/>')
 
     svg.append("</svg>")
     out_path.write_text("\n".join(svg), encoding="utf-8")

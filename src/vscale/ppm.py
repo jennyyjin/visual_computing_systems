@@ -1,4 +1,6 @@
-"""Read and write simple binary PPM image frames without extra dependencies."""
+"""
+Read and write simple binary PPM image frames without extra dependencies.
+"""
 
 from __future__ import annotations
 

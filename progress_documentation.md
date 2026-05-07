@@ -7,14 +7,14 @@ Can V-Scale choose better video generation settings than fixed presets under the
 For this update, we focused on the measurement pipeline rather than the final scheduling method. The goal is to make sure we can generate outputs, log metadata, score the results, and produce basic plots before spending GPU time on real models. 
 
 ## What Is Implemented
-- A fixed prompt suite with spatial-detail, medium-motion, and fast-action prompts.
-- A small configuration sweep over steps, resolution, and frame count.
-- Dummy video baselines: white, black, static frame, random noise, and moving square.
-- A shared run format with `metadata.json` and frame directories.
-- Evaluation metrics for nonblankness, motion, sharpness, stability, and a simple quality proxy.
-- Pareto frontier and budget-selection scripts.
-- A lightweight predictor and scheduler trace script.
-- A report script that writes `outputs/results.md` and `outputs/latency_quality.svg`.
+- A fixed prompt suite with spatial-detail, medium-motion, and fast-action prompts
+- A small configuration sweep over steps, resolution, and frame count
+- Dummy video baselines: white, black, static frame, random noise, and moving square
+- A shared run format with `metadata.json` and frame directories
+- Evaluation metrics for nonblankness, motion, sharpness, stability, and a simple quality proxy
+- Pareto frontier and budget-selection scripts
+- A lightweight predictor and scheduler trace script
+- A report script that writes `outputs/results.md` and `outputs/latency_quality.svg`
 
 ## Current Experiment
 The dummy backend runs 45 videos:
@@ -24,10 +24,10 @@ The dummy backend runs 45 videos:
 ```
 
 The expected behavior is:
-- blank videos fail,
-- static videos fail,
-- random noise fails,
-- moving-square videos pass.
+- blank videos fail
+- static videos fail
+- random noise fails
+- moving-square videos pass
 
 This gives us a basic sanity check for the evaluator before using real video model outputs.
 
@@ -52,7 +52,7 @@ python3 scripts/schedule_config.py --predictor outputs/predictor.json --candidat
 - `outputs/scheduler_trace.json`
 
 ## Next Steps
-1. Run the same pipeline on a real video generation backend.
-2. Add a small real-model profiling sweep.
-3. Compare default, fast, uniform-scaling, and V-Scale selections.
-4. Add better prompt-alignment or video-quality metrics if time allows.
+1. Run the same pipeline on a real video generation backend
+2. Add a small real-model profiling sweep
+3. Compare default, fast, uniform-scaling, and V-Scale selections
+4. Add better prompt-alignment or video-quality metrics if time allows

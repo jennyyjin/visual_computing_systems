@@ -19,18 +19,18 @@ The goal of V-Scale is to make video generation more like a controllable inferen
 
 ## Inputs And Outputs
 ### Inputs
-- Text prompt.
-- Latency budget.
-- Optional memory budget.
-- Model backend.
-- Candidate generation settings: denoising steps, width, height, frames, precision, guidance scale, and offload mode.
+- Text prompt
+- Latency budget
+- Optional memory budget
+- Model backend
+- Candidate generation settings: denoising steps, width, height, frames, precision, guidance scale, and offload mode
 
 ### Outputs
-- Selected generation configuration.
-- Generated video.
-- Scheduler trace explaining the selected configuration.
-- Per-run metadata with prompt, model, config, latency, memory, output path, and failure status.
-- Evaluation artifacts: metrics CSVs, Pareto frontiers, plots, and side-by-side comparisons.
+- Selected generation configuration
+- Generated video
+- Scheduler trace explaining the selected configuration
+- Per-run metadata with prompt, model, config, latency, memory, output path, and failure status
+- Evaluation artifacts: metrics CSVs, Pareto frontiers, plots, and side-by-side comparisons
 
 ## Constraints
 - We will not train a video generation model from scratch.
@@ -64,30 +64,30 @@ We will compare against:
 We also include deliberately bad controls, such as blank, static, and random-noise videos, to verify that the evaluator catches trivial failures.
 
 ## Task List
-1. Build a runnable measurement harness with dummy outputs, metadata, metrics, Pareto selection, and plots.
-2. Integrate at least one real video generation backend.
-3. Run a small profiling sweep over steps, frames, resolution, precision, and guidance scale.
-4. Train lightweight latency and quality predictors from profiling data.
-5. Implement the budget-aware scheduler.
-6. Compare V-Scale against fixed baselines and analyze latency/quality tradeoffs.
+1. Build a runnable measurement harness with dummy outputs, metadata, metrics, Pareto selection, and plots
+2. Integrate at least one real video generation backend
+3. Run a small profiling sweep over steps, frames, resolution, precision, and guidance scale
+4. Train lightweight latency and quality predictors from profiling data
+5. Implement the budget-aware scheduler
+6. Compare V-Scale against fixed baselines and analyze latency/quality tradeoffs
 
 ## Evaluation Plan
 We will evaluate:
-- mean and p95 latency,
-- peak GPU memory when available,
-- budget error,
-- output validity,
-- quality proxy,
-- prompt-alignment or video-quality metrics if feasible,
-- human pairwise preference on a small set of final videos.
+- mean and p95 latency
+- peak GPU memory when available
+- budget error
+- output validity
+- quality proxy
+- prompt-alignment or video-quality metrics if feasible
+- human pairwise preference on a small set of final videos
 
 Expected figures:
-- quality-latency Pareto curve,
-- budget-compliance plot,
-- baseline comparison table,
-- predictor error plot,
-- compute-allocation heatmap,
-- side-by-side qualitative demo.
+- quality-latency Pareto curve
+- budget-compliance plot
+- baseline comparison table
+- predictor error plot
+- compute-allocation heatmap
+- side-by-side qualitative demo
 
 ## Definition Of Success
 The project succeeds if we can show an end-to-end system that profiles video generation runs, builds a useful quality-latency frontier, predicts latency well enough to avoid most budget violations, and selects configurations that improve quality over naive fast presets under matched budgets.
