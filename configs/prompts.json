@@ -1,0 +1,21 @@
+[
+  {
+    "id": "static_landscape",
+    "prompt": "A quiet mountain lake at sunrise, mist over the water, gentle camera push-in",
+    "expected_motion": "low",
+    "quality_focus": "spatial_detail"
+  },
+  {
+    "id": "walking_person",
+    "prompt": "A person in a red jacket walking across a city crosswalk, handheld camera",
+    "expected_motion": "medium",
+    "quality_focus": "temporal_consistency"
+  },
+  {
+    "id": "fast_action",
+    "prompt": "A skateboarder performs a kickflip in a sunny plaza, smooth tracking shot",
+    "expected_motion": "high",
+    "quality_focus": "motion"
+  }
+]
+

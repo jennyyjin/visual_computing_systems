@@ -1,0 +1,27 @@
+[
+  {
+    "config_id": "tiny_preview",
+    "steps": 4,
+    "width": 128,
+    "height": 128,
+    "frames": 8,
+    "precision": "fp16"
+  },
+  {
+    "config_id": "short_preview",
+    "steps": 8,
+    "width": 160,
+    "height": 128,
+    "frames": 12,
+    "precision": "fp16"
+  },
+  {
+    "config_id": "balanced_preview",
+    "steps": 12,
+    "width": 192,
+    "height": 128,
+    "frames": 16,
+    "precision": "fp16"
+  }
+]
+
