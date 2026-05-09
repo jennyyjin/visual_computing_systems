@@ -7,6 +7,8 @@ Jeffrey Liu (liujy3)
 ## Summary
 V-Scale is a serving-layer system for interactive video generation. Given a text prompt and a latency or memory budget, it selects generation settings such as denoising steps, resolution, frame count, precision, guidance scale, and offload mode.
 
+The goal is not only to benchmark model speed but also to use profiling data to make better runtime decisions: generate the best usable video preview under a fixed budget, and show that this beats fixed presets on the same hardware. 
+
 We will evaluate the system by profiling feasible open-source video generation models, building quality-latency tradeoff curves, training lightweight latency/quality predictors, and comparing V-Scale against fixed presets under the same budgets.
 
 ## Project Question
@@ -37,6 +39,19 @@ The goal of V-Scale is to make video generation more like a controllable inferen
 - The main constraint is limited GPU compute and memory.
 - The system should support multiple model backends through adapters.
 - Experiments will start with short clips and modest resolutions so the pipeline remains feasible.
+
+## Model Selection
+We will use a small set of backends selected for feasibility and coverage:
+- **Dummy backend:** used to validate the evaluation pipeline without requiring GPU inference. It provides controlled failure cases such as blank outputs, static frames, random noise, and simple coherent motion so we can verify that the evaluator and scheduler correctly distinguish unusable outputs from valid generations 
+- **CogVideoX-2B:** primary real-model backend. It integrates cleanly with Diffusers, is relatively lightweight to run, and exposes the main inference controls we want to study, including denoising steps, frame count, resolution, and guidance scale
+- **LTX-Video:** secondary backend for cross-model evaluation. It is designed for relatively fast inference and low-step generation, making it a useful contrast to CogVideoX-2B when studying latency-quality tradeoffs and scheduler behavior across different model architectures 
+
+## Prompt Suite
+The evaluation prompts are fixed in `configs/prompts.json`:
+- `static_landscape`: low motion, spatial-detail focused
+- `walking_person`: medium motion, temporal-consistency focused
+- `fast_action`: high motion, motion focused
+These prompts are intentionally small but cover the main tradeoffs V-Scale needs to handle.
 
 ## Approach
 ### Model Adapter
