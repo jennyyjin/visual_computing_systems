@@ -1,0 +1,2 @@
+run_id,model,prompt_id,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+ltx_magician_512_49_fp8,ltx2_19b_distilled,magician_rabbit,steps0_512x512_49f,0,512,512,49,fp8,612.735439,,72.5208,5.8522,0.1404,0.5718,14.3503,1,0.4877,1,0.6488,TRUE,ok

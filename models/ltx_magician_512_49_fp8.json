@@ -1,0 +1,11 @@
+{
+  "model": "ltx2_19b_distilled",
+  "prompt": "A realistic magician in a black tuxedo standing on a theater stage dramatically pulls a fluffy white rabbit out of a black magic hat, cinematic lighting, detailed face, realistic motion",
+  "width": 512,
+  "height": 512,
+  "frames": 49,
+  "fps": 24,
+  "quantization": "fp8-cast",
+  "latency_seconds": 612.7354388237,
+  "gpu": "A100 40GB"
+}
