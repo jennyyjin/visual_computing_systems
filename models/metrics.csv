@@ -1,0 +1,6 @@
+run_id,model,prompt_id,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+ltx_magician_384x384_49f_fp8_cast,ltx2_19b_distilled,magician_rabbit,steps0_384x384_49f,0,384,384,49,fp8-cast,584.677927,,71.7672,5.569,0.1778,2.401,9.4883,1.0,0.4641,1.0,0.648,true,ok
+ltx_magician_512x512_25f_fp8_cast,ltx2_19b_distilled,magician_rabbit,steps0_512x512_25f,0,512,512,25,fp8-cast,588.412213,,64.5974,9.7219,0.1155,6.8871,13.584,1.0,0.8102,1.0,0.7567,true,ok
+ltx_magician_512x512_49f_none,ltx2_19b_distilled,magician_rabbit,steps0_512x512_49f,0,512,512,49,none,590.004499,,70.9392,6.0122,0.1314,0.7397,13.35,1.0,0.501,1.0,0.6516,true,ok
+ltx_magician_512x512_49f_fp8_cast,ltx2_19b_distilled,magician_rabbit,steps0_512x512_49f,0,512,512,49,fp8-cast,593.623503,,72.5208,5.8522,0.1404,0.5718,14.3503,1.0,0.4877,1.0,0.6488,true,ok
+ltx_magician_384x384_49f_none,ltx2_19b_distilled,magician_rabbit,steps0_384x384_49f,0,384,384,49,none,594.448092,,67.319,5.9196,0.1711,2.3535,11.9324,1.0,0.4933,1.0,0.6569,true,ok
