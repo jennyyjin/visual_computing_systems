@@ -1,0 +1,4 @@
+budget_seconds,run_id,model,prompt_id,expected_motion,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,motion_threshold,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+5.0,ltx_walking_person_ltx_fast_384x640_49f_20s,ltx,walking_person,medium,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,2.432201,18213.46,55.2747,13.6667,0.75,0.2668,6.9183,25.0835,1.0,1.0,1.0,0.8534,true,ok
+10.0,ltx_walking_person_ltx_fast_384x640_49f_20s,ltx,walking_person,medium,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,2.432201,18213.46,55.2747,13.6667,0.75,0.2668,6.9183,25.0835,1.0,1.0,1.0,0.8534,true,ok
+20.0,ltx_walking_person_ltx_fast_384x640_49f_20s,ltx,walking_person,medium,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,2.432201,18213.46,55.2747,13.6667,0.75,0.2668,6.9183,25.0835,1.0,1.0,1.0,0.8534,true,ok

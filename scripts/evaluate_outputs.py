@@ -18,6 +18,21 @@ path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from vscale.ppm import read_ppm
 
 
+MOTION_THRESHOLDS = {
+    "low": 0.25,
+    "medium": 0.75,
+    "high": 1.0,
+}
+
+
+def load_prompt_metadata(path: Path) -> dict[str, dict]:
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as f:
+        prompts = json.load(f)
+    return {prompt["id"]: prompt for prompt in prompts}
+
+
 def pixel_stats(pixels: bytes) -> tuple[float, float]:
     avg = sum(pixels) / len(pixels)
     var = sum((value - avg) ** 2 for value in pixels) / len(pixels)
@@ -74,8 +89,12 @@ def failure_reason(is_nonblank: bool, has_motion: bool, not_flicker_noise: bool)
     return "ok" if not reasons else "+".join(reasons)
 
 
-def evaluate_run(run_dir: Path) -> dict:
-    with (run_dir / "metadata.json").open("r", encoding="utf-8") as f:
+def evaluate_run(run_dir: Path, prompt_metadata: dict[str, dict] | None = None) -> dict:
+    metadata_path = run_dir / "metadata.json"
+    if not metadata_path.exists():
+        raise FileNotFoundError(f"missing metadata.json in {run_dir}")
+
+    with metadata_path.open("r", encoding="utf-8") as f:
         metadata = json.load(f)
 
     frame_paths = sorted((run_dir / "frames").glob("*.ppm"))
@@ -118,8 +137,12 @@ def evaluate_run(run_dir: Path) -> dict:
         * stability_score
     )
 
+    prompt = (prompt_metadata or {}).get(metadata["prompt_id"], {})
+    expected_motion = prompt.get("expected_motion", "")
+    motion_threshold = MOTION_THRESHOLDS.get(expected_motion, 1.0)
+
     is_nonblank = spatial_std >= 5.0
-    has_motion = temporal_delta >= 1.0
+    has_motion = temporal_delta >= motion_threshold
     not_flicker_noise = temporal_delta <= 80.0
     valid_video = is_nonblank and has_motion and not_flicker_noise
 
@@ -128,6 +151,7 @@ def evaluate_run(run_dir: Path) -> dict:
         "run_id": metadata["run_id"],
         "model": metadata["model"],
         "prompt_id": metadata["prompt_id"],
+        "expected_motion": expected_motion,
         "config_id": config["config_id"],
         "steps": config["steps"],
         "width": widths[0],
@@ -138,6 +162,7 @@ def evaluate_run(run_dir: Path) -> dict:
         "peak_memory_mb": metadata.get("peak_memory_mb", ""),
         "spatial_std": round(spatial_std, 4),
         "temporal_delta": round(temporal_delta, 4),
+        "motion_threshold": motion_threshold,
         "sharpness_score": round(normalized_sharpness, 4),
         "min_temporal_delta": round(min_delta, 4),
         "max_temporal_delta": round(max_delta, 4),
@@ -161,15 +186,27 @@ def main() -> None:
     parser.add_argument("--runs", type=Path, default=Path("outputs/runs"))
     parser.add_argument("--out", type=Path, default=Path("outputs/eval"))
     parser.add_argument("--manifest", type=Path, default=None)
+    parser.add_argument("--prompts", type=Path, default=Path("configs/prompts.json"))
     args = parser.parse_args()
 
     args.out.mkdir(parents=True, exist_ok=True)
+    prompt_metadata = load_prompt_metadata(args.prompts)
     run_dirs = (
         run_dirs_from_manifest(args.manifest)
         if args.manifest
         else [path for path in sorted(args.runs.iterdir()) if path.is_dir()]
     )
-    rows = [evaluate_run(path) for path in run_dirs]
+    rows = []
+    skipped = []
+    for run_dir in run_dirs:
+        try:
+            rows.append(evaluate_run(run_dir, prompt_metadata))
+        except (FileNotFoundError, ValueError) as exc:
+            skipped.append((run_dir, exc))
+
+    if not rows:
+        raise RuntimeError("no complete runs found to evaluate")
+
     rows.sort(key=lambda row: (row["model"], row["prompt_id"], float(row["latency_seconds"])))
 
     metrics_path = args.out / "metrics.csv"
@@ -180,6 +217,10 @@ def main() -> None:
 
     valid = sum(row["valid_video"] == "true" for row in rows)
     print(f"evaluated {len(rows)} runs ({valid} valid)")
+    if skipped:
+        print(f"skipped {len(skipped)} incomplete runs")
+        for run_dir, exc in skipped:
+            print(f"  - {run_dir}: {exc}")
     print(f"metrics: {metrics_path}")
 
 

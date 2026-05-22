@@ -1,0 +1,4 @@
+budget_seconds,run_id,model,prompt_id,expected_motion,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,motion_threshold,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+45.0,cogvideox_fast_action_cogvideox_fast_480x768_49f_15s,cogvideox,fast_action,high,cogvideox_fast_480x768_49f_15s,15,768,480,49,float16,43.050366,11066.21,58.9346,3.1471,1.0,0.1391,2.0878,4.4492,1.0,0.2623,1.0,0.5696,true,ok
+70.0,cogvideox_fast_action_cogvideox_480x768_49f_30s,cogvideox,fast_action,high,cogvideox_480x768_49f_30s,30,768,480,49,float16,69.749697,11066.21,75.3364,6.8616,1.0,0.2118,4.0592,12.2015,1.0,0.5718,1.0,0.6925,true,ok
+90.0,cogvideox_fast_action_cogvideox_480x768_49f_30s,cogvideox,fast_action,high,cogvideox_480x768_49f_30s,30,768,480,49,float16,69.749697,11066.21,75.3364,6.8616,1.0,0.2118,4.0592,12.2015,1.0,0.5718,1.0,0.6925,true,ok

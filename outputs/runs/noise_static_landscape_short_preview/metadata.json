@@ -1,0 +1,19 @@
+{
+  "run_id": "noise_static_landscape_short_preview",
+  "model": "noise",
+  "prompt_id": "static_landscape",
+  "prompt": "A quiet mountain lake at sunrise, mist over the water, gentle camera push-in",
+  "config": {
+    "config_id": "short_preview",
+    "steps": 8,
+    "width": 160,
+    "height": 128,
+    "frames": 12,
+    "precision": "fp16"
+  },
+  "latency_seconds": 0.77728,
+  "wall_clock_generation_seconds": 0.189994,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/noise_static_landscape_short_preview/frames"
+}

@@ -23,14 +23,21 @@ def main() -> None:
     parser.add_argument("--prompt", required=True)
     parser.add_argument("--prompt-id", default="manual")
     parser.add_argument("--run-id", required=True)
-    parser.add_argument("--steps", type=int, default=8)
-    parser.add_argument("--frames", type=int, default=16)
-    parser.add_argument("--height", type=int, default=240)
-    parser.add_argument("--width", type=int, default=360)
+    parser.add_argument("--steps", type=int, default=25)
+    parser.add_argument("--frames", type=int, default=49)
+    parser.add_argument("--height", type=int, default=480)
+    parser.add_argument("--width", type=int, default=768)
+    parser.add_argument("--fps", type=int, default=16)
     parser.add_argument("--guidance-scale", type=float, default=6.0)
     parser.add_argument("--model-id", default="THUDM/CogVideoX-2b")
+    parser.add_argument("--offload-mode", choices=("none", "model_cpu_offload"), default="model_cpu_offload")
     parser.add_argument("--out", type=Path, default=Path("outputs/cogvideox"))
     args = parser.parse_args()
+
+    if args.height % 16 != 0 or args.width % 16 != 0:
+        raise SystemExit("CogVideoX height and width must be divisible by 16. Try --height 240 --width 352.")
+    if args.frames % 4 != 1:
+        raise SystemExit("CogVideoX frame count should be 4k+1. Try --frames 49 or --frames 81.")
 
     try:
         import torch
@@ -47,7 +54,10 @@ def main() -> None:
     dtype = torch.float16 if torch.cuda.is_available() else torch.float32
     pipe = CogVideoXPipeline.from_pretrained(args.model_id, torch_dtype=dtype)
     if torch.cuda.is_available():
-        pipe.enable_model_cpu_offload()
+        if args.offload_mode == "model_cpu_offload":
+            pipe.enable_model_cpu_offload()
+        else:
+            pipe.to("cuda")
         pipe.vae.enable_tiling()
         pipe.vae.enable_slicing()
         torch.cuda.reset_peak_memory_stats()
@@ -77,7 +87,7 @@ def main() -> None:
         write_ppm(frames_dir / f"frame_{idx:04d}.ppm", image.width, image.height, image.tobytes())
 
     video_path = run_dir / "video.mp4"
-    export_to_video(result.frames[0], str(video_path), fps=8)
+    export_to_video(result.frames[0], str(video_path), fps=args.fps)
     width = frames[0].width if frames else ""
     height = frames[0].height if frames else ""
 
@@ -94,7 +104,8 @@ def main() -> None:
             "frames": len(frames),
             "precision": str(dtype).replace("torch.", ""),
             "guidance_scale": args.guidance_scale,
-            "offload_mode": "model_cpu_offload",
+            "offload_mode": args.offload_mode,
+            "fps": args.fps,
         },
         "latency_seconds": round(latency, 6),
         "peak_memory_mb": peak_memory_mb,

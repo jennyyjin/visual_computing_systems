@@ -1,21 +1,23 @@
 [
   {
     "id": "static_landscape",
-    "prompt": "A quiet mountain lake at sunrise, mist over the water, gentle camera push-in",
+    "prompt": "A photorealistic quiet mountain lake at sunrise, soft mist drifting over the water, pine trees reflected clearly, gentle cinematic camera push-in, stable natural lighting, no text or logos",
     "expected_motion": "low",
-    "quality_focus": "spatial_detail"
+    "quality_focus": "spatial_detail",
+    "negative_prompt": "text, logo, watermark, low quality, distorted reflections, flicker, sudden camera shake"
   },
   {
     "id": "walking_person",
-    "prompt": "A person in a red jacket walking across a city crosswalk, handheld camera",
+    "prompt": "A photorealistic person in a red jacket walking across a city crosswalk in daylight, natural gait, consistent body shape, cars waiting in the background, subtle handheld camera motion, no text or logos",
     "expected_motion": "medium",
-    "quality_focus": "temporal_consistency"
+    "quality_focus": "temporal_consistency",
+    "negative_prompt": "text, logo, watermark, extra limbs, warped face, duplicated person, flicker, sudden camera shake"
   },
   {
     "id": "fast_action",
-    "prompt": "A skateboarder performs a kickflip in a sunny plaza, smooth tracking shot",
+    "prompt": "A photorealistic skateboarder performs one clean kickflip in a sunny concrete plaza, smooth tracking shot, consistent skateboard motion, realistic shadows, stable body proportions, no text or logos",
     "expected_motion": "high",
-    "quality_focus": "motion"
+    "quality_focus": "motion",
+    "negative_prompt": "text, logo, watermark, broken skateboard, extra limbs, duplicated body, severe motion blur, flicker"
   }
 ]
-

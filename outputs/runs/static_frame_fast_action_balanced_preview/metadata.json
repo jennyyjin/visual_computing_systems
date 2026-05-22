@@ -1,0 +1,19 @@
+{
+  "run_id": "static_frame_fast_action_balanced_preview",
+  "model": "static_frame",
+  "prompt_id": "fast_action",
+  "prompt": "A skateboarder performs a kickflip in a sunny plaza, smooth tracking shot",
+  "config": {
+    "config_id": "balanced_preview",
+    "steps": 12,
+    "width": 192,
+    "height": 128,
+    "frames": 16,
+    "precision": "fp16"
+  },
+  "latency_seconds": 1.799472,
+  "wall_clock_generation_seconds": 0.011099,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/static_frame_fast_action_balanced_preview/frames"
+}

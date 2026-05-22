@@ -1,0 +1,19 @@
+{
+  "run_id": "white_fast_action_short_preview",
+  "model": "white",
+  "prompt_id": "fast_action",
+  "prompt": "A skateboarder performs a kickflip in a sunny plaza, smooth tracking shot",
+  "config": {
+    "config_id": "short_preview",
+    "steps": 8,
+    "width": 160,
+    "height": 128,
+    "frames": 12,
+    "precision": "fp16"
+  },
+  "latency_seconds": 0.75728,
+  "wall_clock_generation_seconds": 0.001691,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/white_fast_action_short_preview/frames"
+}

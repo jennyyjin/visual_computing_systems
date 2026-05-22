@@ -1,0 +1,115 @@
+{
+  "feature_names": [
+    "steps",
+    "width",
+    "height",
+    "frames",
+    "pixel_count",
+    "work_units",
+    "model=cogvideox",
+    "prompt_id=fast_action",
+    "prompt_id=static_landscape",
+    "prompt_id=walking_person",
+    "config_id=cogvideox_480x768_49f_30s",
+    "config_id=cogvideox_fast_480x768_49f_15s",
+    "precision=float16"
+  ],
+  "numeric_features": [
+    "steps",
+    "width",
+    "height",
+    "frames",
+    "pixel_count",
+    "work_units"
+  ],
+  "categorical_features": [
+    "model",
+    "prompt_id",
+    "config_id",
+    "precision"
+  ],
+  "vocab": {
+    "model": [
+      "cogvideox"
+    ],
+    "prompt_id": [
+      "fast_action",
+      "static_landscape",
+      "walking_person"
+    ],
+    "config_id": [
+      "cogvideox_480x768_49f_30s",
+      "cogvideox_fast_480x768_49f_15s"
+    ],
+    "precision": [
+      "float16"
+    ]
+  },
+  "means": [
+    22.5,
+    768.0,
+    480.0,
+    49.0,
+    368640.0,
+    406.42560000000003,
+    1.0,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333,
+    0.5,
+    0.5,
+    1.0
+  ],
+  "stds": [
+    7.5,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    135.4752,
+    1.0,
+    0.4714045207910317,
+    0.4714045207910317,
+    0.4714045207910317,
+    0.5,
+    0.5,
+    1.0
+  ],
+  "latency_weights": [
+    54.482411499999884,
+    3.138526161845956,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    3.1385261618459435,
+    0.0,
+    0.9039144761942169,
+    -0.8783314084729165,
+    -0.02558306772130412,
+    3.138526161845956,
+    -3.138526161845956,
+    0.0
+  ],
+  "quality_weights": [
+    0.5455666666666649,
+    0.00945809688091134,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.009458096880911225,
+    0.0,
+    0.04029454348272114,
+    -0.03620930998476531,
+    -0.004085233497955676,
+    0.00945809688091134,
+    -0.00945809688091134,
+    0.0
+  ],
+  "training_metrics": {
+    "rows": 6,
+    "latency_r2": 0.9979,
+    "quality_r2": 0.9058
+  }
+}

@@ -1,0 +1,7 @@
+run_id,model,prompt_id,expected_motion,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,motion_threshold,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+ltx_fast_action_ltx_fast_384x640_49f_20s,ltx,fast_action,high,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,2.403781,18213.46,47.3413,2.0493,1.0,0.1466,1.517,2.9801,1.0,0.1708,1.0,0.5391,true,ok
+ltx_fast_action_ltx_quality_512x704_81f_30s,ltx,fast_action,high,ltx_quality_512x704_81f_30s,30,704,512,81,bfloat16,9.084259,22997.67,49.8061,4.9305,1.0,0.1447,2.2765,8.617,1.0,0.4109,1.0,0.6227,true,ok
+ltx_static_landscape_ltx_fast_384x640_49f_20s,ltx,static_landscape,low,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,3.240603,14544.9,61.3916,0.7653,0.25,0.0994,0.6358,0.8221,1.0,0.0638,1.0,0.4922,true,ok
+ltx_static_landscape_ltx_quality_512x704_81f_30s,ltx,static_landscape,low,ltx_quality_512x704_81f_30s,30,704,512,81,bfloat16,9.40905,15660.54,60.2015,0.923,0.25,0.1072,0.8341,1.0771,1.0,0.0769,1.0,0.4984,true,ok
+ltx_walking_person_ltx_fast_384x640_49f_20s,ltx,walking_person,medium,ltx_fast_384x640_49f_20s,20,640,384,49,bfloat16,2.432201,18213.46,55.2747,13.6667,0.75,0.2668,6.9183,25.0835,1.0,1.0,1.0,0.8534,true,ok
+ltx_walking_person_ltx_quality_512x704_81f_30s,ltx,walking_person,medium,ltx_quality_512x704_81f_30s,30,704,512,81,bfloat16,9.014522,15660.54,64.2646,9.9269,0.75,0.226,4.8241,14.9224,1.0,0.8272,1.0,0.7847,true,ok

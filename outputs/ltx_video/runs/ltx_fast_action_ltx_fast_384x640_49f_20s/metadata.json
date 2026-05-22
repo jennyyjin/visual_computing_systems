@@ -1,0 +1,26 @@
+{
+  "run_id": "ltx_fast_action_ltx_fast_384x640_49f_20s",
+  "model": "ltx",
+  "model_id": "Lightricks/LTX-Video",
+  "prompt_id": "fast_action",
+  "prompt": "A photorealistic skateboarder performs one clean kickflip in a sunny concrete plaza, smooth tracking shot, consistent skateboard motion, realistic shadows, stable body proportions, no text or logos",
+  "negative_prompt": "text, logo, watermark, broken skateboard, extra limbs, duplicated body, severe motion blur, flicker",
+  "seed": 1234,
+  "config": {
+    "config_id": "ltx_fast_384x640_49f_20s",
+    "steps": 20,
+    "width": 640,
+    "height": 384,
+    "frames": 49,
+    "precision": "bfloat16",
+    "guidance_scale": 3.0,
+    "offload_mode": "none",
+    "fps": 24
+  },
+  "latency_seconds": 2.403781,
+  "model_load_seconds": 6.493469,
+  "peak_memory_mb": 18213.46,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs/ltx_video/runs/ltx_fast_action_ltx_fast_384x640_49f_20s/video.mp4",
+  "frames_dir": "outputs/ltx_video/runs/ltx_fast_action_ltx_fast_384x640_49f_20s/frames"
+}

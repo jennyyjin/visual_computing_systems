@@ -1,26 +1,39 @@
 #!/usr/bin/env python3
-"""Build the progress summary report and latency-quality plot."""
+"""Build a concise evaluation summary and latency-quality plot."""
 
 from __future__ import annotations
 
 import argparse
 import csv
 from collections import Counter
+from html import escape
 from pathlib import Path
 
 
-PLOT_WIDTH = 860
-PLOT_HEIGHT = 520
-LEFT = 70
-RIGHT = 30
-TOP = 40
-BOTTOM = 60
+PLOT_WIDTH = 1040
+PLOT_HEIGHT = 560
+LEFT = 78
+CHART_RIGHT = 760
+TOP = 58
+BOTTOM = 72
+LEGEND_X = 800
 BASELINE_COLORS = {
-    "white": "#7f7f7f",
-    "black": "#000000",
-    "static_frame": "#9467bd",
-    "noise": "#ff7f0e",
-    "moving_square": "#2ca02c",
+    "white": "gray",
+    "black": "black",
+    "static_frame": "purple",
+    "noise": "orange",
+    "moving_square": "green",
+    "ltx": "blue",
+    "cogvideox": "red",
+}
+MODEL_LABELS = {
+    "white": "white baseline",
+    "black": "black baseline",
+    "static_frame": "static frame",
+    "noise": "noise",
+    "moving_square": "moving square",
+    "ltx": "LTX-Video",
+    "cogvideox": "CogVideoX-2B",
 }
 
 
@@ -40,7 +53,7 @@ def as_float(row: dict, key: str) -> float:
 def point_position(row: dict, max_latency: float, max_quality: float) -> tuple[float, float]:
     latency = as_float(row, "latency_seconds")
     quality = as_float(row, "quality_proxy")
-    plot_width = PLOT_WIDTH - LEFT - RIGHT
+    plot_width = CHART_RIGHT - LEFT
     plot_height = PLOT_HEIGHT - TOP - BOTTOM
     x = LEFT + (latency / max_latency) * plot_width if max_latency else LEFT
     y = PLOT_HEIGHT - BOTTOM - (quality / max_quality) * plot_height if max_quality else PLOT_HEIGHT - BOTTOM
@@ -48,7 +61,31 @@ def point_position(row: dict, max_latency: float, max_quality: float) -> tuple[f
 
 
 def baseline_color(name: str) -> str:
-    return BASELINE_COLORS.get(name, "#1f77b4")
+    return BASELINE_COLORS.get(name, "blue")
+
+
+def model_label(name: str) -> str:
+    return MODEL_LABELS.get(name, name.replace("_", " "))
+
+
+def axis_ticks(max_value: float) -> list[float]:
+    if max_value <= 0:
+        return [0.0]
+    return [0.0, max_value / 2.0, max_value]
+
+
+def legend_rows(metrics: list[dict], frontier: list[dict]) -> list[tuple[str, str, str]]:
+    present_models = []
+    for row in metrics:
+        model = row["model"]
+        if model not in present_models:
+            present_models.append(model)
+    rows = [("model", model, model_label(model)) for model in present_models]
+    if frontier:
+        rows.append(("frontier", "frontier", "Pareto frontier"))
+    if any(row.get("valid_video") == "false" for row in metrics):
+        rows.append(("invalid", "invalid", "invalid run"))
+    return rows
 
 
 def write_latency_quality_plot(metrics: list[dict], frontier: list[dict], out_path: Path) -> None:
@@ -56,40 +93,65 @@ def write_latency_quality_plot(metrics: list[dict], frontier: list[dict], out_pa
     max_quality = max(1.0, max(as_float(row, "quality_proxy") for row in metrics))
     frontier_ids = {row["run_id"] for row in frontier}
     x_axis = PLOT_HEIGHT - BOTTOM
+    plot_width = CHART_RIGHT - LEFT
+    plot_height = PLOT_HEIGHT - TOP - BOTTOM
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{PLOT_WIDTH}" height="{PLOT_HEIGHT}" viewBox="0 0 {PLOT_WIDTH} {PLOT_HEIGHT}">',
         '<rect width="100%" height="100%" fill="white"/>',
-        '<text x="70" y="26" font-family="Arial" font-size="18">V-Scale: Quality vs Latency</text>',
-        f'<line x1="{LEFT}" y1="{x_axis}" x2="{PLOT_WIDTH-RIGHT}" y2="{x_axis}" stroke="black"/>',
-        f'<line x1="{LEFT}" y1="{TOP}" x2="{LEFT}" y2="{x_axis}" stroke="black"/>',
-        f'<text x="{PLOT_WIDTH/2-45}" y="{PLOT_HEIGHT-18}" font-family="Arial" font-size="13">latency (s)</text>',
-        '<text x="14" y="280" transform="rotate(-90 14 280)" font-family="Arial" font-size="13">quality proxy</text>',
+        '<text x="78" y="32" font-family="Arial" font-size="22" font-weight="700">Quality vs Latency</text>',
+        f'<line x1="{LEFT}" y1="{x_axis}" x2="{CHART_RIGHT}" y2="{x_axis}" stroke="black" stroke-width="1.4"/>',
+        f'<line x1="{LEFT}" y1="{TOP}" x2="{LEFT}" y2="{x_axis}" stroke="black" stroke-width="1.4"/>',
+        f'<text x="{LEFT + plot_width / 2 - 35:.1f}" y="{PLOT_HEIGHT-22}" font-family="Arial" font-size="15">latency (s)</text>',
+        '<text x="18" y="310" transform="rotate(-90 18 310)" font-family="Arial" font-size="15">quality proxy</text>',
+        f'<text x="{LEGEND_X}" y="72" font-family="Arial" font-size="14" font-weight="700">Legend</text>',
     ]
 
-    for index, (name, color) in enumerate(BASELINE_COLORS.items()):
-        y = 48 + index * 22
-        svg.append(f'<circle cx="650" cy="{y}" r="5" fill="{color}" stroke="black"/>')
-        svg.append(f'<text x="664" y="{y+4}" font-family="Arial" font-size="12">{name}</text>')
-    svg.append('<circle cx="650" cy="164" r="6" fill="white" stroke="black" stroke-width="2"/>')
-    svg.append('<text x="664" y="168" font-family="Arial" font-size="12">frontier</text>')
+    for value in axis_ticks(max_latency):
+        x = LEFT + (value / max_latency) * plot_width if max_latency else LEFT
+        if value > 0:
+            svg.append(f'<line x1="{x:.1f}" y1="{TOP}" x2="{x:.1f}" y2="{x_axis}" stroke="lightgray" stroke-width="0.8"/>')
+        svg.append(f'<line x1="{x:.1f}" y1="{x_axis}" x2="{x:.1f}" y2="{x_axis+5}" stroke="black"/>')
+        svg.append(f'<text x="{x-18:.1f}" y="{x_axis+24}" font-family="Arial" font-size="12">{value:.2f}</text>')
 
-    for value in [0, max_latency / 2, max_latency]:
-        x = LEFT + (value / max_latency) * (PLOT_WIDTH - LEFT - RIGHT) if max_latency else LEFT
-        svg.append(f'<text x="{x-14:.1f}" y="{x_axis+20}" font-family="Arial" font-size="11">{value:.2f}</text>')
+    for value in [0.0, 0.5, 1.0]:
+        y = PLOT_HEIGHT - BOTTOM - (value / max_quality) * plot_height if max_quality else x_axis
+        if value > 0:
+            svg.append(f'<line x1="{LEFT}" y1="{y:.1f}" x2="{CHART_RIGHT}" y2="{y:.1f}" stroke="lightgray" stroke-width="0.8"/>')
+        svg.append(f'<line x1="{LEFT-5}" y1="{y:.1f}" x2="{LEFT}" y2="{y:.1f}" stroke="black"/>')
+        svg.append(f'<text x="42" y="{y+4:.1f}" font-family="Arial" font-size="12">{value:.1f}</text>')
 
-    for value in [0, max_quality / 2, max_quality]:
-        y = PLOT_HEIGHT - BOTTOM - (value / max_quality) * (PLOT_HEIGHT - TOP - BOTTOM) if max_quality else x_axis
-        svg.append(f'<text x="35" y="{y+4:.1f}" font-family="Arial" font-size="11">{value:.1f}</text>')
+    for index, (kind, name, label) in enumerate(legend_rows(metrics, frontier)):
+        y = 98 + index * 28
+        if kind == "frontier":
+            svg.append(f'<circle cx="{LEGEND_X+8}" cy="{y}" r="7" fill="white" stroke="black" stroke-width="2.5"/>')
+        elif kind == "invalid":
+            svg.append(f'<circle cx="{LEGEND_X+8}" cy="{y}" r="6" fill="white" stroke="black" stroke-width="1.5"/>')
+            svg.append(f'<line x1="{LEGEND_X+3}" y1="{y-5}" x2="{LEGEND_X+13}" y2="{y+5}" stroke="black" stroke-width="1.5"/>')
+            svg.append(f'<line x1="{LEGEND_X+13}" y1="{y-5}" x2="{LEGEND_X+3}" y2="{y+5}" stroke="black" stroke-width="1.5"/>')
+        else:
+            color = baseline_color(name)
+            svg.append(f'<circle cx="{LEGEND_X+8}" cy="{y}" r="6" fill="{color}" stroke="black" stroke-width="1.2"/>')
+        svg.append(f'<text x="{LEGEND_X+24}" y="{y+5}" font-family="Arial" font-size="13">{escape(label)}</text>')
 
     for row in metrics:
         x, y = point_position(row, max_latency, max_quality)
         is_frontier = row["run_id"] in frontier_ids
+        is_valid = row.get("valid_video") != "false"
         fill = baseline_color(row["model"])
-        stroke = "black" if is_frontier else fill
-        radius = 6 if is_frontier else 4
-        width = 2 if is_frontier else 1
-        svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="{width}"/>')
+        stroke = "black" if is_frontier else "white"
+        radius = 7 if is_frontier else 5.5
+        width = 2.4 if is_frontier else 1.2
+        opacity = "1.0" if is_valid else "0.35"
+        svg.append(
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius}" fill="{fill}" '
+            f'stroke="{stroke}" stroke-width="{width}" opacity="{opacity}">'
+            f'<title>{escape(row["run_id"])}: quality {row["quality_proxy"]}, latency {row["latency_seconds"]}s</title>'
+            "</circle>"
+        )
+        if not is_valid:
+            svg.append(f'<line x1="{x-4:.1f}" y1="{y-4:.1f}" x2="{x+4:.1f}" y2="{y+4:.1f}" stroke="black" stroke-width="1.4"/>')
+            svg.append(f'<line x1="{x+4:.1f}" y1="{y-4:.1f}" x2="{x-4:.1f}" y2="{y+4:.1f}" stroke="black" stroke-width="1.4"/>')
 
     svg.append("</svg>")
     out_path.write_text("\n".join(svg), encoding="utf-8")
@@ -122,40 +184,27 @@ def markdown_summary(metrics: list[dict], frontier: list[dict], selections: list
     best = best_valid_run(metrics)
 
     lines = [
-        "# V-Scale Progress Results",
+        "# Evaluation Summary",
         "",
         f"Total evaluated runs: {len(metrics)}",
         f"Valid videos: {validity_counts.get('true', 0)}",
         f"Invalid videos: {validity_counts.get('false', 0)}",
         f"Pareto frontier points: {len(frontier)}",
         "",
-        "## Best Valid Dummy Output",
+        "## Highest-Scoring Valid Run",
         "",
         f"- Run: `{best['run_id']}`",
         f"- Quality proxy: `{best['quality_proxy']}`",
         f"- Latency: `{best['latency_seconds']}s`",
         f"- Failure reason: `{best['failure_reason']}`",
         "",
-        "## Failure Reasons",
+        "## Validity Outcomes",
         "",
     ]
 
     lines.extend(f"- `{reason}`: {count}" for reason, count in sorted(failure_counts.items()))
-    lines.extend(["", "## Budget Selections", ""])
+    lines.extend(["", "## Budget-Constrained Selections", ""])
     lines.extend(budget_selection_table(selections))
-    lines.extend(
-        [
-            "",
-            "## Interpretation",
-            "",
-            (
-                "The sanity checks behave as expected: blank videos, frozen videos, and random noise are "
-                "marked as failures, while the moving-square clip is treated as a valid nontrivial output. "
-                "This gives us a basic test harness before plugging in real video model generations."
-            ),
-        ]
-    )
-
     return "\n".join(lines) + "\n"
 
 
@@ -164,7 +213,7 @@ def write_markdown_report(metrics: list[dict], frontier: list[dict], selections:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Create progress report artifacts from evaluation metrics.")
+    parser = argparse.ArgumentParser(description="Create evaluation report artifacts from metrics.")
     parser.add_argument("--eval", type=Path, default=Path("outputs/eval"))
     parser.add_argument("--out", type=Path, default=Path("outputs"))
     return parser.parse_args()
@@ -178,7 +227,7 @@ def main() -> None:
 
     args.out.mkdir(parents=True, exist_ok=True)
     plot_path = args.out / "latency_quality.svg"
-    report_path = args.out / "results.md"
+    report_path = args.out / "evaluation_summary.md"
     write_latency_quality_plot(metrics, frontier, plot_path)
     write_markdown_report(metrics, frontier, selections, report_path)
 
