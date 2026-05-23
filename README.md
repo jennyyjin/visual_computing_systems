@@ -107,8 +107,59 @@ Expected figures:
 ## Definition Of Success
 The project succeeds if we can show an end-to-end system that profiles video generation runs, builds a useful quality-latency frontier, predicts latency well enough to avoid most budget violations, and selects configurations that improve quality over naive fast presets under matched budgets.
 
-## Current Progress
-Current progress is documented in progress_documentation.md. The current code runs the evaluation pipeline on dummy videos so that the metrics, report generation, Pareto selection, predictor, and scheduler can be tested before running expensive models.
+## Intermediate Results
+
+We started with running one model for inferencing end to end to get expected video generation and measure its speed. Then we tried a few configurations to try. Those preliminary results can be found in models directory. After those confirmation with expected results, we scaled up and tried each model with multiple configurations and evaluation metrics recorded.
+
+We have completed an end-to-end evaluation pipeline that:
+- profiles generation runs,
+- computes validity and quality metrics,
+- constructs Pareto frontiers,
+- and selects configurations under latency budgets.
+
+Current evaluation results are summarized in `results/evaluation_summary.md`. The output videos and frames can found outputs/cogvideox/runs for the cogvideox model and outputs/ltx_video/runs for the ltx model.
+
+### Current Evaluation Snapshot
+- Total evaluated runs: 12
+- Valid videos: 11
+- Invalid videos: 1
+- Pareto frontier points: 2
+
+### Highest-Scoring Valid Run
+| Run | Quality Proxy | Latency |
+|---|---|---|
+| `ltx_walking_person_ltx_fast_384x640_49f_20s` | 0.8534 | 2.43s |
+
+The current best-performing configuration achieves relatively high quality while remaining well under the target latency budgets.
+
+### Validity Outcomes
+| Outcome | Count |
+|---|---|
+| ok | 11 |
+| no_temporal_change | 1 |
+
+The evaluator successfully detects trivial failures such as videos with no temporal motion, validating that the metric pipeline can distinguish unusable outputs from valid generations.
+
+### Budget-Constrained Scheduler Selections
+| Budget | Selected Run | Quality | Latency |
+|---|---|---|---|
+| 5s | `ltx_walking_person_ltx_fast_384x640_49f_20s` | 0.8534 | 2.43s |
+| 10s | `ltx_walking_person_ltx_fast_384x640_49f_20s` | 0.8534 | 2.43s |
+| 45s | `ltx_walking_person_ltx_fast_384x640_49f_20s` | 0.8534 | 2.43s |
+| 70s | `ltx_walking_person_ltx_fast_384x640_49f_20s` | 0.8534 | 2.43s |
+
+At the current scale of experiments, the scheduler consistently selects the same Pareto-optimal configuration across all tested budgets because it dominates the available profiled runs.
+
+## What We Have Demonstrated So Far
+
+So far, we have demonstrated:
+- an operational profiling and evaluation pipeline,
+- automatic detection of invalid outputs,
+- Pareto frontier construction,
+- budget-aware configuration selection,
+- and integration of a real video-generation backend.
+
+These results validate the core infrastructure required for V-Scale.
 
 ## Risks
 ### Limited Compute
