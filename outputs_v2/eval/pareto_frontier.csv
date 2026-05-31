@@ -1,0 +1,4 @@
+run_id,model,prompt_id,config_id,steps,width,height,frames,precision,latency_seconds,peak_memory_mb,spatial_std,temporal_delta,sharpness_score,min_temporal_delta,max_temporal_delta,nonblank_score,motion_score,stability_score,quality_proxy,valid_video,failure_reason
+moving_square_fast_action_tiny_preview,moving_square,fast_action,tiny_preview,4,128,128,8,fp16,0.256608,,29.7426,6.0322,0.0215,5.7393,6.1493,0.7641,0.5027,1.0,0.4816,true,ok
+moving_square_static_landscape_tiny_preview,moving_square,static_landscape,tiny_preview,4,128,128,8,fp16,0.256608,,29.7426,6.0322,0.0215,5.7393,6.1493,0.7641,0.5027,1.0,0.4816,true,ok
+moving_square_walking_person_tiny_preview,moving_square,walking_person,tiny_preview,4,128,128,8,fp16,0.256608,,29.7426,6.0322,0.0215,5.7393,6.1493,0.7641,0.5027,1.0,0.4816,true,ok

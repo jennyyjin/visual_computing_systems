@@ -1,0 +1,19 @@
+{
+  "run_id": "black_walking_person_balanced_preview",
+  "model": "black",
+  "prompt_id": "walking_person",
+  "prompt": "A person in a red jacket walking across a city crosswalk, handheld camera",
+  "config": {
+    "config_id": "balanced_preview",
+    "steps": 12,
+    "width": 192,
+    "height": 128,
+    "frames": 16,
+    "precision": "fp16"
+  },
+  "latency_seconds": 1.789472,
+  "wall_clock_generation_seconds": 0.002289,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/black_walking_person_balanced_preview/frames"
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "cogvideox_static_landscape_cogvideox_480x768_49f_50s",
+  "model": "cogvideox",
+  "model_id": "THUDM/CogVideoX-2b",
+  "prompt_id": "static_landscape",
+  "prompt": "A photorealistic quiet mountain lake at sunrise, soft mist drifting over the water, pine trees reflected clearly, gentle cinematic camera push-in, stable natural lighting, no text or logos",
+  "negative_prompt": "text, logo, watermark, low quality, distorted reflections, flicker, sudden camera shake",
+  "seed": 42,
+  "config": {
+    "config_id": "cogvideox_480x768_49f_50s",
+    "steps": 50,
+    "width": 768,
+    "height": 480,
+    "frames": 49,
+    "precision": "float16",
+    "guidance_scale": 6.0,
+    "offload_mode": "model_cpu_offload",
+    "fps": 16
+  },
+  "latency_seconds": 115.470937,
+  "model_load_seconds": 16.293746,
+  "peak_memory_mb": 11066.21,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs/cogvideox/runs/cogvideox_static_landscape_cogvideox_480x768_49f_50s/video.mp4",
+  "frames_dir": "outputs/cogvideox/runs/cogvideox_static_landscape_cogvideox_480x768_49f_50s/frames"
+}

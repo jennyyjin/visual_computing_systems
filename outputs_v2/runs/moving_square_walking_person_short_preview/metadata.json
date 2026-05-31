@@ -1,0 +1,19 @@
+{
+  "run_id": "moving_square_walking_person_short_preview",
+  "model": "moving_square",
+  "prompt_id": "walking_person",
+  "prompt": "A person in a red jacket walking across a city crosswalk, handheld camera",
+  "config": {
+    "config_id": "short_preview",
+    "steps": 8,
+    "width": 160,
+    "height": 128,
+    "frames": 12,
+    "precision": "fp16"
+  },
+  "latency_seconds": 0.79728,
+  "wall_clock_generation_seconds": 0.00486,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/moving_square_walking_person_short_preview/frames"
+}

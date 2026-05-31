@@ -1,0 +1,19 @@
+{
+  "run_id": "moving_square_static_landscape_tiny_preview",
+  "model": "moving_square",
+  "prompt_id": "static_landscape",
+  "prompt": "A quiet mountain lake at sunrise, mist over the water, gentle camera push-in",
+  "config": {
+    "config_id": "tiny_preview",
+    "steps": 4,
+    "width": 128,
+    "height": 128,
+    "frames": 8,
+    "precision": "fp16"
+  },
+  "latency_seconds": 0.256608,
+  "wall_clock_generation_seconds": 0.003184,
+  "peak_memory_mb": "",
+  "output_format": "ppm_frame_directory",
+  "frames_dir": "outputs/runs/moving_square_static_landscape_tiny_preview/frames"
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "cogvideox_fast_action_cogvideox_480x768_17f_15s",
+  "model": "cogvideox",
+  "model_id": "THUDM/CogVideoX-2b",
+  "prompt_id": "fast_action",
+  "prompt": "A photorealistic skateboarder performs one clean kickflip in a sunny concrete plaza, smooth tracking shot, consistent skateboard motion, realistic shadows, stable body proportions, no text or logos",
+  "negative_prompt": "text, logo, watermark, broken skateboard, extra limbs, duplicated body, severe motion blur, flicker",
+  "seed": 42,
+  "config": {
+    "config_id": "cogvideox_480x768_17f_15s",
+    "steps": 15,
+    "width": 768,
+    "height": 480,
+    "frames": 17,
+    "precision": "float16",
+    "guidance_scale": 6.0,
+    "offload_mode": "model_cpu_offload",
+    "fps": 16
+  },
+  "latency_seconds": 16.659589,
+  "model_load_seconds": 2.033894,
+  "peak_memory_mb": 11066.21,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs/cogvideox/runs/cogvideox_fast_action_cogvideox_480x768_17f_15s/video.mp4",
+  "frames_dir": "outputs/cogvideox/runs/cogvideox_fast_action_cogvideox_480x768_17f_15s/frames"
+}

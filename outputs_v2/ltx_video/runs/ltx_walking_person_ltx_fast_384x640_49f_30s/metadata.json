@@ -1,0 +1,26 @@
+{
+  "run_id": "ltx_walking_person_ltx_fast_384x640_49f_30s",
+  "model": "ltx",
+  "model_id": "Lightricks/LTX-Video",
+  "prompt_id": "walking_person",
+  "prompt": "A photorealistic person in a red jacket walking across a city crosswalk in daylight, natural gait, consistent body shape, cars waiting in the background, subtle handheld camera motion, no text or logos",
+  "negative_prompt": "text, logo, watermark, extra limbs, warped face, duplicated person, flicker, sudden camera shake",
+  "seed": 42,
+  "config": {
+    "config_id": "ltx_fast_384x640_49f_30s",
+    "steps": 30,
+    "width": 640,
+    "height": 384,
+    "frames": 49,
+    "precision": "bfloat16",
+    "guidance_scale": 3.0,
+    "offload_mode": "none",
+    "fps": 24
+  },
+  "latency_seconds": 3.452165,
+  "model_load_seconds": 8.435521,
+  "peak_memory_mb": 21882.03,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs/ltx_video/runs/ltx_walking_person_ltx_fast_384x640_49f_30s/video.mp4",
+  "frames_dir": "outputs/ltx_video/runs/ltx_walking_person_ltx_fast_384x640_49f_30s/frames"
+}
