@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="560" viewBox="0 0 1040 560">
+<rect width="100%" height="100%" fill="white"/>
+<text x="78" y="32" font-family="Arial" font-size="22" font-weight="700">Quality vs Latency</text>
+<line x1="78" y1="488" x2="760" y2="488" stroke="black" stroke-width="1.4"/>
+<line x1="78" y1="58" x2="78" y2="488" stroke="black" stroke-width="1.4"/>
+<text x="384.0" y="538" font-family="Arial" font-size="15">latency (s)</text>
+<text x="18" y="310" transform="rotate(-90 18 310)" font-family="Arial" font-size="15">quality proxy</text>
+<text x="800" y="72" font-family="Arial" font-size="14" font-weight="700">Legend</text>
+<line x1="78.0" y1="488" x2="78.0" y2="493" stroke="black"/>
+<text x="60.0" y="512" font-family="Arial" font-size="12">0.00</text>
+<line x1="419.0" y1="58" x2="419.0" y2="488" stroke="lightgray" stroke-width="0.8"/>
+<line x1="419.0" y1="488" x2="419.0" y2="493" stroke="black"/>
+<text x="401.0" y="512" font-family="Arial" font-size="12">50.59</text>
+<line x1="760.0" y1="58" x2="760.0" y2="488" stroke="lightgray" stroke-width="0.8"/>
+<line x1="760.0" y1="488" x2="760.0" y2="493" stroke="black"/>
+<text x="742.0" y="512" font-family="Arial" font-size="12">101.18</text>
+<line x1="73" y1="488.0" x2="78" y2="488.0" stroke="black"/>
+<text x="42" y="492.0" font-family="Arial" font-size="12">0.0</text>
+<line x1="78" y1="273.0" x2="760" y2="273.0" stroke="lightgray" stroke-width="0.8"/>
+<line x1="73" y1="273.0" x2="78" y2="273.0" stroke="black"/>
+<text x="42" y="277.0" font-family="Arial" font-size="12">0.5</text>
+<line x1="78" y1="58.0" x2="760" y2="58.0" stroke="lightgray" stroke-width="0.8"/>
+<line x1="73" y1="58.0" x2="78" y2="58.0" stroke="black"/>
+<text x="42" y="62.0" font-family="Arial" font-size="12">1.0</text>
+<circle cx="808" cy="98" r="6" fill="blue" stroke="black" stroke-width="1.2"/>
+<text x="824" y="103" font-family="Arial" font-size="13">LTX-Video</text>
+<circle cx="808" cy="126" r="6" fill="red" stroke="black" stroke-width="1.2"/>
+<text x="824" y="131" font-family="Arial" font-size="13">CogVideoX-2B</text>
+<circle cx="808" cy="154" r="7" fill="white" stroke="black" stroke-width="2.5"/>
+<text x="824" y="159" font-family="Arial" font-size="13">Pareto frontier</text>
+<circle cx="83.3" cy="379.5" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_4s: quality 0.2523, latency 0.785042s</title></circle>
+<circle cx="84.6" cy="275.4" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_17f_20s: quality 0.4944, latency 0.983285s</title></circle>
+<circle cx="86.1" cy="249.6" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_8s: quality 0.5545, latency 1.197869s</title></circle>
+<circle cx="89.7" cy="234.8" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_33f_20s: quality 0.5889, latency 1.734769s</title></circle>
+<circle cx="90.9" cy="238.1" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_15s: quality 0.5812, latency 1.915033s</title></circle>
+<circle cx="94.3" cy="235.7" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_20s: quality 0.5868, latency 2.425399s</title></circle>
+<circle cx="101.3" cy="231.0" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_30s: quality 0.5976, latency 3.45173s</title></circle>
+<circle cx="103.5" cy="224.3" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_512x704_49f_20s: quality 0.6132, latency 3.775841s</title></circle>
+<circle cx="105.3" cy="207.9" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_81f_20s: quality 0.6513, latency 4.052368s</title></circle>
+<circle cx="140.0" cy="219.9" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_quality_512x704_81f_30s: quality 0.6235, latency 9.192514s</title></circle>
+<circle cx="83.3" cy="270.2" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_4s: quality 0.5065, latency 0.792668s</title></circle>
+<circle cx="85.9" cy="268.7" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_8s: quality 0.5099, latency 1.173695s</title></circle>
+<circle cx="87.3" cy="268.9" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_17f_20s: quality 0.5095, latency 1.377661s</title></circle>
+<circle cx="89.6" cy="244.4" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_33f_20s: quality 0.5664, latency 1.727198s</title></circle>
+<circle cx="90.7" cy="267.8" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_15s: quality 0.5122, latency 1.88911s</title></circle>
+<circle cx="94.0" cy="266.3" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_20s: quality 0.5155, latency 2.37824s</title></circle>
+<circle cx="100.7" cy="264.9" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_30s: quality 0.5189, latency 3.364818s</title></circle>
+<circle cx="103.2" cy="272.5" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_512x704_49f_20s: quality 0.5011, latency 3.737688s</title></circle>
+<circle cx="105.0" cy="268.9" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_81f_20s: quality 0.5095, latency 4.002346s</title></circle>
+<circle cx="138.9" cy="272.5" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_quality_512x704_81f_30s: quality 0.5012, latency 9.028004s</title></circle>
+<circle cx="83.3" cy="259.6" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_4s: quality 0.5311, latency 0.779245s</title></circle>
+<circle cx="84.5" cy="173.2" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_17f_20s: quality 0.732, latency 0.970257s</title></circle>
+<circle cx="86.0" cy="151.7" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_8s: quality 0.7822, latency 1.185319s</title></circle>
+<circle cx="89.5" cy="158.5" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_33f_20s: quality 0.7662, latency 1.712689s</title></circle>
+<circle cx="90.8" cy="142.8" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_15s: quality 0.8027, latency 1.893095s</title></circle>
+<circle cx="94.2" cy="172.4" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_20s: quality 0.734, latency 2.399913s</title></circle>
+<circle cx="101.1" cy="170.3" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_30s: quality 0.7389, latency 3.422335s</title></circle>
+<circle cx="103.2" cy="121.9" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_512x704_49f_20s: quality 0.8515, latency 3.742048s</title></circle>
+<circle cx="105.1" cy="148.5" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_81f_20s: quality 0.7896, latency 4.027077s</title></circle>
+<circle cx="139.5" cy="148.0" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_quality_512x704_81f_30s: quality 0.7906, latency 9.130898s</title></circle>
+<circle cx="183.1" cy="181.6" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_17f_15s: quality 0.7125, latency 15.587001s</title></circle>
+<circle cx="248.1" cy="157.5" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_384x640_49f_15s: quality 0.7685, latency 25.228926s</title></circle>
+<circle cx="249.3" cy="192.5" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_33f_15s: quality 0.6873, latency 25.407898s</title></circle>
+<circle cx="337.1" cy="210.4" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_fast_480x768_49f_15s: quality 0.6456, latency 38.433578s</title></circle>
+<circle cx="338.4" cy="210.4" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_49f_15s: quality 0.6456, latency 38.627949s</title></circle>
+<circle cx="519.7" cy="158.0" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_49f_30s: quality 0.7674, latency 65.522407s</title></circle>
+<circle cx="555.0" cy="266.6" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_81f_15s: quality 0.5149, latency 70.770271s</title></circle>
+<circle cx="760.0" cy="134.5" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_49f_50s: quality 0.8222, latency 101.179127s</title></circle>
+<circle cx="184.9" cy="285.5" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_17f_15s: quality 0.471, latency 15.85493s</title></circle>
+<circle cx="255.7" cy="285.6" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_33f_15s: quality 0.4708, latency 26.367012s</title></circle>
+<circle cx="301.6" cy="285.6" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_384x640_49f_15s: quality 0.4708, latency 33.170093s</title></circle>
+<circle cx="361.6" cy="287.3" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_49f_15s: quality 0.4668, latency 42.068114s</title></circle>
+<circle cx="376.8" cy="287.3" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_fast_480x768_49f_15s: quality 0.4668, latency 44.336015s</title></circle>
+<circle cx="509.4" cy="280.4" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_49f_30s: quality 0.4829, latency 64.006981s</title></circle>
+<circle cx="587.8" cy="288.0" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_81f_15s: quality 0.4652, latency 75.635284s</title></circle>
+<circle cx="749.9" cy="280.5" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_49f_50s: quality 0.4826, latency 99.673645s</title></circle>
+<circle cx="184.1" cy="226.2" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_17f_15s: quality 0.6089, latency 15.746045s</title></circle>
+<circle cx="249.2" cy="240.3" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_384x640_49f_15s: quality 0.5761, latency 25.39785s</title></circle>
+<circle cx="261.8" cy="243.8" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_33f_15s: quality 0.568, latency 27.27073s</title></circle>
+<circle cx="340.8" cy="255.2" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_49f_15s: quality 0.5414, latency 38.987513s</title></circle>
+<circle cx="345.1" cy="255.2" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_fast_480x768_49f_15s: quality 0.5414, latency 39.623936s</title></circle>
+<circle cx="508.8" cy="206.1" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_49f_30s: quality 0.6556, latency 63.914748s</title></circle>
+<circle cx="567.5" cy="277.8" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_81f_15s: quality 0.4888, latency 72.614692s</title></circle>
+<circle cx="753.1" cy="181.0" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_49f_50s: quality 0.7139, latency 100.159718s</title></circle>
+</svg>
