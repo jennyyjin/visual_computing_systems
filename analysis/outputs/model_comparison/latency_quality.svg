@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="560" viewBox="0 0 1040 560">
+<rect width="100%" height="100%" fill="white"/>
+<text x="78" y="32" font-family="Arial" font-size="22" font-weight="700">Quality vs Latency</text>
+<line x1="78" y1="488" x2="760" y2="488" stroke="black" stroke-width="1.4"/>
+<line x1="78" y1="58" x2="78" y2="488" stroke="black" stroke-width="1.4"/>
+<text x="384.0" y="538" font-family="Arial" font-size="15">latency (s)</text>
+<text x="18" y="310" transform="rotate(-90 18 310)" font-family="Arial" font-size="15">quality proxy</text>
+<text x="800" y="72" font-family="Arial" font-size="14" font-weight="700">Legend</text>
+<line x1="78.0" y1="488" x2="78.0" y2="493" stroke="black"/>
+<text x="60.0" y="512" font-family="Arial" font-size="12">0.00</text>
+<line x1="419.0" y1="58" x2="419.0" y2="488" stroke="lightgray" stroke-width="0.8"/>
+<line x1="419.0" y1="488" x2="419.0" y2="493" stroke="black"/>
+<text x="401.0" y="512" font-family="Arial" font-size="12">34.87</text>
+<line x1="760.0" y1="58" x2="760.0" y2="488" stroke="lightgray" stroke-width="0.8"/>
+<line x1="760.0" y1="488" x2="760.0" y2="493" stroke="black"/>
+<text x="742.0" y="512" font-family="Arial" font-size="12">69.75</text>
+<line x1="73" y1="488.0" x2="78" y2="488.0" stroke="black"/>
+<text x="42" y="492.0" font-family="Arial" font-size="12">0.0</text>
+<line x1="78" y1="273.0" x2="760" y2="273.0" stroke="lightgray" stroke-width="0.8"/>
+<line x1="73" y1="273.0" x2="78" y2="273.0" stroke="black"/>
+<text x="42" y="277.0" font-family="Arial" font-size="12">0.5</text>
+<line x1="78" y1="58.0" x2="760" y2="58.0" stroke="lightgray" stroke-width="0.8"/>
+<line x1="73" y1="58.0" x2="78" y2="58.0" stroke="black"/>
+<text x="42" y="62.0" font-family="Arial" font-size="12">1.0</text>
+<circle cx="808" cy="98" r="6" fill="blue" stroke="black" stroke-width="1.2"/>
+<text x="824" y="103" font-family="Arial" font-size="13">LTX-Video</text>
+<circle cx="808" cy="126" r="6" fill="red" stroke="black" stroke-width="1.2"/>
+<text x="824" y="131" font-family="Arial" font-size="13">CogVideoX-2B</text>
+<circle cx="808" cy="154" r="7" fill="white" stroke="black" stroke-width="2.5"/>
+<text x="824" y="159" font-family="Arial" font-size="13">Pareto frontier</text>
+<circle cx="808" cy="182" r="6" fill="white" stroke="black" stroke-width="1.5"/>
+<line x1="803" y1="177" x2="813" y2="187" stroke="black" stroke-width="1.5"/>
+<line x1="813" y1="177" x2="803" y2="187" stroke="black" stroke-width="1.5"/>
+<text x="824" y="187" font-family="Arial" font-size="13">invalid run</text>
+<circle cx="101.5" cy="256.2" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_fast_action_ltx_fast_384x640_49f_20s: quality 0.5391, latency 2.403781s</title></circle>
+<circle cx="166.8" cy="220.2" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_fast_action_ltx_quality_512x704_81f_30s: quality 0.6227, latency 9.084259s</title></circle>
+<circle cx="109.7" cy="276.4" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_fast_384x640_49f_20s: quality 0.4922, latency 3.240603s</title></circle>
+<circle cx="170.0" cy="273.7" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_static_landscape_ltx_quality_512x704_81f_30s: quality 0.4984, latency 9.40905s</title></circle>
+<circle cx="101.8" cy="121.0" r="7" fill="blue" stroke="black" stroke-width="2.4" opacity="1.0"><title>ltx_walking_person_ltx_fast_384x640_49f_20s: quality 0.8534, latency 2.432201s</title></circle>
+<circle cx="166.1" cy="150.6" r="5.5" fill="blue" stroke="white" stroke-width="1.2" opacity="1.0"><title>ltx_walking_person_ltx_quality_512x704_81f_30s: quality 0.7847, latency 9.014522s</title></circle>
+<circle cx="498.9" cy="243.1" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_fast_480x768_49f_15s: quality 0.5696, latency 43.050366s</title></circle>
+<circle cx="760.0" cy="190.2" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_fast_action_cogvideox_480x768_49f_30s: quality 0.6925, latency 69.749697s</title></circle>
+<circle cx="475.3" cy="288.0" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="0.35"><title>cogvideox_static_landscape_cogvideox_fast_480x768_49f_15s: quality 0.465, latency 40.636706s</title></circle>
+<line x1="471.3" y1="284.0" x2="479.3" y2="292.0" stroke="black" stroke-width="1.4"/>
+<line x1="479.3" y1="284.0" x2="471.3" y2="292.0" stroke="black" stroke-width="1.4"/>
+<circle cx="709.7" cy="284.8" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_static_landscape_cogvideox_480x768_49f_30s: quality 0.4725, latency 64.601424s</title></circle>
+<circle cx="489.6" cy="277.9" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_fast_480x768_49f_15s: quality 0.4886, latency 42.096907s</title></circle>
+<circle cx="730.8" cy="236.4" r="5.5" fill="red" stroke="white" stroke-width="1.2" opacity="1.0"><title>cogvideox_walking_person_cogvideox_480x768_49f_30s: quality 0.5852, latency 66.759369s</title></circle>
+</svg>
