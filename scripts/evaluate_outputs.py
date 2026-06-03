@@ -19,7 +19,7 @@ from vscale.ppm import read_ppm
 
 
 MOTION_THRESHOLDS = {
-    "low": 0.25,
+    "low": 0.20,
     "medium": 0.75,
     "high": 1.0,
 }
@@ -183,8 +183,8 @@ def run_dirs_from_manifest(manifest_path: Path) -> list[Path]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--runs", type=Path, default=Path("outputs/runs"))
-    parser.add_argument("--out", type=Path, default=Path("outputs/eval"))
+    parser.add_argument("--runs", type=Path, default=Path("outputs_final/runs"))
+    parser.add_argument("--out", type=Path, default=Path("analysis/eval"))
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--prompts", type=Path, default=Path("configs/prompts.json"))
     args = parser.parse_args()

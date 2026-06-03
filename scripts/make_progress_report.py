@@ -214,8 +214,8 @@ def write_markdown_report(metrics: list[dict], frontier: list[dict], selections:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create evaluation report artifacts from metrics.")
-    parser.add_argument("--eval", type=Path, default=Path("outputs/eval"))
-    parser.add_argument("--out", type=Path, default=Path("outputs"))
+    parser.add_argument("--eval", type=Path, default=Path("analysis/eval"))
+    parser.add_argument("--out", type=Path, default=Path("analysis"))
     return parser.parse_args()
 
 

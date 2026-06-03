@@ -42,13 +42,13 @@ def predict(weights: list[float], x: list[float]) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Select a V-Scale configuration under a latency budget.")
-    parser.add_argument("--predictor", type=Path, default=Path("outputs/predictor.json"))
-    parser.add_argument("--candidates", type=Path, default=Path("outputs/eval/metrics.csv"))
+    parser.add_argument("--predictor", type=Path, default=Path("analysis/predictor.json"))
+    parser.add_argument("--candidates", type=Path, default=Path("analysis/eval/metrics.csv"))
     parser.add_argument("--budget", type=float, required=True)
     parser.add_argument("--prompt-id", default=None)
     parser.add_argument("--model", default=None)
     parser.add_argument("--tolerance", type=float, default=0.10)
-    parser.add_argument("--out", type=Path, default=Path("outputs/scheduler_trace.json"))
+    parser.add_argument("--out", type=Path, default=Path("analysis/scheduler_trace.json"))
     args = parser.parse_args()
 
     with args.predictor.open("r", encoding="utf-8") as f:

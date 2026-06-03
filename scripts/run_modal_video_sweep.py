@@ -315,7 +315,7 @@ def run_remote_batch(specs: list[dict]) -> bytes:
 def main(
     prompts: str = "configs/prompts.json",
     sweep: str = "configs/modal_sweep.json",
-    out: str = "outputs/ltx_video",
+    out: str = "outputs_final/ltx_video",
     backend: str | None = "ltx",
     prompt_id: str | None = None,
     config_id: str | None = None,

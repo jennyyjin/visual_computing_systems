@@ -115,8 +115,8 @@ def write_frame_grid(runs_root: Path, run_ids: list[str], out_path: Path) -> Non
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build an SVG frame grid from selected V-Scale runs.")
-    parser.add_argument("--runs", type=Path, default=Path("outputs/runs"))
-    parser.add_argument("--out", type=Path, default=Path("outputs/frame_grid.svg"))
+    parser.add_argument("--runs", type=Path, default=Path("outputs_final/runs"))
+    parser.add_argument("--out", type=Path, default=Path("analysis/frame_grid.svg"))
     parser.add_argument("--run-id", action="append", dest="run_ids", default=None)
     args = parser.parse_args()
     run_ids = args.run_ids or auto_run_ids(args.runs) or DEFAULT_RUNS

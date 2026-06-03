@@ -111,8 +111,8 @@ def r2_score(y: list[float], y_hat: list[float]) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Train lightweight latency and quality predictors from V-Scale metrics.")
-    parser.add_argument("--metrics", type=Path, default=Path("outputs/eval/metrics.csv"))
-    parser.add_argument("--out", type=Path, default=Path("outputs/predictor.json"))
+    parser.add_argument("--metrics", type=Path, default=Path("analysis/eval/metrics.csv"))
+    parser.add_argument("--out", type=Path, default=Path("analysis/predictor.json"))
     parser.add_argument("--epochs", type=int, default=5000)
     parser.add_argument("--lr", type=float, default=0.03)
     parser.add_argument("--l2", type=float, default=0.0001)

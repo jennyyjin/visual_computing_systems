@@ -37,7 +37,7 @@ def main() -> None:
     parser.add_argument("--latency-seconds", type=float, required=True)
     parser.add_argument("--peak-memory-mb", type=float, default=None)
     parser.add_argument("--frames-dir", type=Path, required=True)
-    parser.add_argument("--out", type=Path, default=Path("outputs/real"))
+    parser.add_argument("--out", type=Path, default=Path("outputs_final/real"))
     args = parser.parse_args()
 
     run_dir = args.out / "runs" / args.run_id

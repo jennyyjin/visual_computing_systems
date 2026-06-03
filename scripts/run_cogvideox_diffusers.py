@@ -31,7 +31,7 @@ def main() -> None:
     parser.add_argument("--guidance-scale", type=float, default=6.0)
     parser.add_argument("--model-id", default="THUDM/CogVideoX-2b")
     parser.add_argument("--offload-mode", choices=("none", "model_cpu_offload"), default="model_cpu_offload")
-    parser.add_argument("--out", type=Path, default=Path("outputs/cogvideox"))
+    parser.add_argument("--out", type=Path, default=Path("outputs_final/cogvideox"))
     args = parser.parse_args()
 
     if args.height % 16 != 0 or args.width % 16 != 0:

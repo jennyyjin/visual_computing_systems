@@ -56,8 +56,8 @@ def select_for_budgets(rows: list[dict], budgets: list[float]) -> list[dict]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--metrics", type=Path, default=Path("outputs/eval/metrics.csv"))
-    parser.add_argument("--out", type=Path, default=Path("outputs/eval"))
+    parser.add_argument("--metrics", type=Path, default=Path("analysis/eval/metrics.csv"))
+    parser.add_argument("--out", type=Path, default=Path("analysis/eval"))
     parser.add_argument("--budgets", nargs="*", type=float, default=[0.15, 0.5, 1.0])
     args = parser.parse_args()
 

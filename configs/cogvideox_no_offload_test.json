@@ -1,0 +1,41 @@
+[
+  {
+    "config_id": "cogvideox_480x768_17f_15s_no_offload",
+    "backend": "cogvideox",
+    "model_id": "THUDM/CogVideoX-2b",
+    "steps": 15,
+    "width": 768,
+    "height": 480,
+    "frames": 17,
+    "fps": 16,
+    "precision": "fp16",
+    "guidance_scale": 6.0,
+    "offload_mode": "none"
+  },
+  {
+    "config_id": "cogvideox_384x640_49f_15s_no_offload",
+    "backend": "cogvideox",
+    "model_id": "THUDM/CogVideoX-2b",
+    "steps": 15,
+    "width": 640,
+    "height": 384,
+    "frames": 49,
+    "fps": 16,
+    "precision": "fp16",
+    "guidance_scale": 6.0,
+    "offload_mode": "none"
+  },
+  {
+    "config_id": "cogvideox_480x768_33f_15s_no_offload",
+    "backend": "cogvideox",
+    "model_id": "THUDM/CogVideoX-2b",
+    "steps": 15,
+    "width": 768,
+    "height": 480,
+    "frames": 33,
+    "fps": 16,
+    "precision": "fp16",
+    "guidance_scale": 6.0,
+    "offload_mode": "none"
+  }
+]
