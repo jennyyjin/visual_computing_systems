@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="96" y="44" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">CPU offload trades latency for memory</text>
+<line x1="209.5" y1="86" x2="209.5" y2="604" stroke="#e5e7eb" stroke-width="1"/>
+<text x="209.5" y="632" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">11</text>
+<line x1="552.3" y1="86" x2="552.3" y2="604" stroke="#e5e7eb" stroke-width="1"/>
+<text x="552.3" y="632" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">14</text>
+<line x1="895.1" y1="86" x2="895.1" y2="604" stroke="#e5e7eb" stroke-width="1"/>
+<text x="895.1" y="632" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">17</text>
+<line x1="1238.0" y1="86" x2="1238.0" y2="604" stroke="#e5e7eb" stroke-width="1"/>
+<text x="1238.0" y="632" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">20</text>
+<line x1="96" y1="604.0" x2="1146" y2="604.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="82" y="609.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">0</text>
+<line x1="96" y1="427.9" x2="1146" y2="427.9" stroke="#e5e7eb" stroke-width="1"/>
+<text x="82" y="432.9" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">10</text>
+<line x1="96" y1="251.7" x2="1146" y2="251.7" stroke="#e5e7eb" stroke-width="1"/>
+<text x="82" y="256.7" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">20</text>
+<line x1="96" y1="75.6" x2="1146" y2="75.6" stroke="#e5e7eb" stroke-width="1"/>
+<text x="82" y="80.6" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">30</text>
+<line x1="96" y1="604" x2="1146" y2="604" stroke="#111827" stroke-width="2"/>
+<line x1="96" y1="86" x2="96" y2="604" stroke="#111827" stroke-width="2"/>
+<text x="600.0" y="672" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#111827">Peak GPU memory (GB)</text>
+<text x="30" y="350.0" text-anchor="middle" transform="rotate(-90 30 350.0)" font-family="Arial, sans-serif" font-size="18" fill="#111827">Latency (seconds)</text>
+<line x1="187.4" y1="329.4" x2="1050.9" y2="430.8" stroke="#94a3b8" stroke-width="3" stroke-dasharray="7 5"/>
+<circle cx="187.4" cy="329.4" r="9" fill="#2563eb" stroke="#111827" stroke-width="2"/>
+<circle cx="1050.9" cy="430.8" r="9" fill="#16a34a" stroke="#111827" stroke-width="2"/>
+<rect x="1034.9" y="385.8" width="102.4" height="24" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1042.9" y="402.8" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#6b7280">17f, 480x768</text>
+<line x1="187.4" y1="159.6" x2="1048.2" y2="259.2" stroke="#94a3b8" stroke-width="3" stroke-dasharray="7 5"/>
+<circle cx="187.4" cy="159.6" r="9" fill="#2563eb" stroke="#111827" stroke-width="2"/>
+<circle cx="1048.2" cy="259.2" r="9" fill="#16a34a" stroke="#111827" stroke-width="2"/>
+<rect x="1062.2" y="274.2" width="102.4" height="24" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1070.2" y="291.2" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#6b7280">49f, 384x640</text>
+<line x1="187.4" y1="156.5" x2="1054.6" y2="250.7" stroke="#94a3b8" stroke-width="3" stroke-dasharray="7 5"/>
+<circle cx="187.4" cy="156.5" r="9" fill="#2563eb" stroke="#111827" stroke-width="2"/>
+<circle cx="1054.6" cy="250.7" r="9" fill="#16a34a" stroke="#111827" stroke-width="2"/>
+<rect x="1068.6" y="205.7" width="102.4" height="24" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1076.6" y="222.7" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#6b7280">33f, 480x768</text>
+<circle cx="114" cy="104" r="8" fill="#2563eb" stroke="#111827" stroke-width="2"/>
+<text x="132" y="109" font-family="Arial, sans-serif" font-size="15" fill="#111827">CPU offload</text>
+<circle cx="114" cy="134" r="8" fill="#16a34a" stroke="#111827" stroke-width="2"/>
+<text x="132" y="139" font-family="Arial, sans-serif" font-size="15" fill="#111827">No offload</text>
+</svg>
