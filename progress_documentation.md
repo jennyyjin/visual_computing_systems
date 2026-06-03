@@ -14,7 +14,7 @@ For this update, we focused on the measurement pipeline rather than the final sc
 - Evaluation metrics for nonblankness, motion, sharpness, stability, and a simple quality proxy
 - Pareto frontier and budget-selection scripts
 - A lightweight predictor and scheduler trace script
-- A report script that writes `outputs/results.md` and `outputs/latency_quality.svg`
+- A report script that writes `analysis/results.md` and `analysis/latency_quality.svg`
 
 ## Model Selection
 We are using the same evaluation harness for dummy outputs and real video generation backends.
@@ -31,7 +31,7 @@ The prompt file is `configs/prompts.json`. The prompts are fixed so that every c
 These prompts cover the main tradeoffs the scheduler should eventually reason about: detail, consistency, and motion.
 
 ## Metrics
-The evaluator writes `outputs/eval/metrics.csv`. Current quality metrics:
+The evaluator writes `analysis/eval/metrics.csv`. Current quality metrics:
 - `spatial_std`: detects blank or low-contrast videos
 - `temporal_delta`: measures frame-to-frame motion
 - `sharpness_score`: measures local image variation
@@ -62,25 +62,25 @@ The current repo satisfies the base-case requirement: the full analysis pipeline
 
 ## Run Commands 
 ```bash
-python3 scripts/generate_dummy_videos.py --out outputs
-python3 scripts/evaluate_outputs.py --runs outputs/runs --manifest outputs/manifest.csv --out outputs/eval
-python3 scripts/pareto_select.py --metrics outputs/eval/metrics.csv --out outputs/eval
-python3 scripts/make_progress_report.py --eval outputs/eval --out outputs
-python3 scripts/train_predictor.py --metrics outputs/eval/metrics.csv --out outputs/predictor.json
-python3 scripts/schedule_config.py --predictor outputs/predictor.json --candidates outputs/eval/metrics.csv --budget 0.5 --prompt-id fast_action --out outputs/scheduler_trace.json
+python3 scripts/generate_dummy_videos.py --out outputs_final
+python3 scripts/evaluate_outputs.py --runs outputs_final/runs --manifest outputs_final/manifest.csv --out analysis/eval
+python3 scripts/pareto_select.py --metrics analysis/eval/metrics.csv --out analysis/eval
+python3 scripts/make_progress_report.py --eval analysis/eval --out analysis
+python3 scripts/train_predictor.py --metrics analysis/eval/metrics.csv --out analysis/predictor.json
+python3 scripts/schedule_config.py --predictor analysis/predictor.json --candidates analysis/eval/metrics.csv --budget 0.5 --prompt-id fast_action --out analysis/scheduler_trace.json
 ```
 
-## Expected Outputs
-- `outputs/manifest.csv`
-- `outputs/eval/metrics.csv`
-- `outputs/eval/pareto_frontier.csv`
-- `outputs/eval/budget_selections.csv`
-- `outputs/results.md`
-- `outputs/latency_quality.svg`
-- `outputs/predictor.json`
-- `outputs/scheduler_trace.json`
+## Generated Artifacts
+- `outputs_final/manifest.csv`
+- `analysis/eval/metrics.csv`
+- `analysis/eval/pareto_frontier.csv`
+- `analysis/eval/budget_selections.csv`
+- `analysis/results.md`
+- `analysis/latency_quality.svg`
+- `analysis/predictor.json`
+- `analysis/scheduler_trace.json`
 
-## Next Steps
+## Remaining Work
 1. Run the same pipeline on a real video generation backend
 2. Add a small real-model profiling sweep
 3. Compare default, fast, uniform-scaling, and V-Scale selections
