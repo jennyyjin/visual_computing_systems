@@ -11,6 +11,8 @@ The main question we looked at was:
 
 > How do latency and memory constraints change the comparison of video generation models and configurations, and can a budget-aware scheduler use these tradeoffs to improve delivered quality over fixed presets?
 
+**Full report:** [final_report.pdf](final_report.pdf) contains the complete problem definition, method, pipeline, results, bottleneck analysis, and discussion.
+
 We compare LTX-Video and CogVideoX-2B on the same Modal L40S GPU. For each model, we sweep settings such as denoising steps, frame count, resolution, precision, and CPU offload mode. We then use the measured results to decide which configuration should be served under a given budget.
 
 ## Key Results
