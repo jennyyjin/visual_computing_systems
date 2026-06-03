@@ -1,169 +1,189 @@
 # V-Scale: Budget-Aware Inference Scheduling for Video Generation
 
-## Team
-Jenny Jin (yqjin)  
-Jeffrey Liu (liujy3)
+Stanford CS348K, Visual Computing Systems, Spring 2026  
+Jenny Jin (`yqjin`) and Jeffrey Liu (`liujy3`)
 
-## Summary
-V-Scale is a serving-layer system for interactive video generation. Given a text prompt and a latency or memory budget, it selects generation settings such as denoising steps, resolution, frame count, precision, guidance scale, and offload mode.
+## Overview
 
-The goal is not only to benchmark model speed but also to use profiling data to make better runtime decisions: generate the best usable video preview under a fixed budget, and compare that decision against fixed presets on the same hardware.
+V-Scale is a small profiling and scheduling system for text-to-video generation. Given a prompt and a latency or memory budget, it chooses the best measured model/configuration that fits the budget.
 
-The final evaluation profiles two open-source video generation models, builds quality-latency tradeoff curves, trains lightweight latency/quality predictors, and compares V-Scale against fixed presets under matched budgets.
+The main question we looked at was:
 
-## Project Question
-Can a hardware-aware scheduler choose video generation configurations that produce better outputs than fixed presets while satisfying latency and memory constraints?
+> How do latency and memory constraints change the comparison of video generation models and configurations, and can a budget-aware scheduler use these tradeoffs to improve delivered quality over fixed presets?
 
-## Motivation
-Video generation models expose many low-level controls, but interactive users usually care about higher-level constraints: how quickly a preview appears and whether it is usable. The relationship between model settings and runtime is nonlinear and hardware-dependent, especially when resolution, frame count, denoising steps, attention cost, decoding, and memory pressure interact.
+We compare LTX-Video and CogVideoX-2B on the same Modal L40S GPU. For each model, we sweep settings such as denoising steps, frame count, resolution, precision, and CPU offload mode. We then use the measured results to decide which configuration should be served under a given budget.
 
-The goal of V-Scale is to make video generation more like a controllable inference service. Instead of manually tuning parameters, the system profiles what a backend can do and chooses a configuration that fits the requested budget.
+## Key Results
 
-## Inputs And Outputs
-### Inputs
-- Text prompt
-- Latency budget
-- Optional memory budget
-- Model backend
-- Candidate generation settings: denoising steps, width, height, frames, precision, guidance scale, and offload mode
-
-### Outputs
-- Selected generation configuration
-- Generated video
-- Scheduler trace explaining the selected configuration
-- Per-run metadata with prompt, model, config, latency, memory, output path, and failure status
-- Evaluation artifacts: metrics CSVs, Pareto frontiers, plots, and side-by-side comparisons
-
-## Repository Organization
-- `outputs_final/`: raw generated run artifacts from the final experiments, including manifests, videos, frames, and per-run metadata
-- `analysis/`: derived metrics, Pareto frontiers, plots, reports, predictor outputs, and comparison tables
-- `scripts/`: generation, evaluation, plotting, scheduling, and reporting scripts
-- `configs/`: prompt and sweep configuration files
-- `slides/`: final presentation source and slide assets
-- `outputs/`, `outputs_v2/`: older archived raw experiment outputs kept for provenance
-- `analysis/bottleneck/`: bottleneck experiment notes and report
-- `analysis/optimization/`: implementation optimization report
-- `analysis/outputs/`, `analysis/outputs_v2/`: derived analysis artifacts from the older archived runs
-
-## Constraints
-- We do not train a video generation model from scratch.
-- The main constraint is limited GPU compute and memory.
-- The system supports multiple model backends through adapters.
-- Experiments use short clips and modest resolutions so the profiling sweep remains feasible.
-
-## Model Selection
-We use a small set of backends selected for feasibility and coverage:
-- **Dummy backend:** used to validate the evaluation pipeline without requiring GPU inference. It provides controlled failure cases such as blank outputs, static frames, random noise, and simple coherent motion so we can verify that the evaluator and scheduler correctly distinguish unusable outputs from valid generations 
-- **CogVideoX-2B:** primary real-model backend. It integrates cleanly with Diffusers, is relatively lightweight to run, and exposes the main inference controls we want to study, including denoising steps, frame count, resolution, and guidance scale
-- **LTX-Video:** secondary backend for cross-model evaluation. It is designed for relatively fast inference and low-step generation, making it a useful contrast to CogVideoX-2B when studying latency-quality tradeoffs and scheduler behavior across different model architectures 
-
-## Prompt Suite
-The evaluation prompts are fixed in `configs/prompts.json`:
-- `static_landscape`: low motion, spatial-detail focused
-- `walking_person`: medium motion, temporal-consistency focused
-- `fast_action`: high motion, motion focused
-These prompts are intentionally small but cover the main tradeoffs V-Scale needs to handle.
-
-## Approach
-### Model Adapter
-Each backend exposes a shared generation interface and saves outputs in a common format. This keeps the profiler and evaluator independent of the specific video model.
-
-### Profiler
-The profiler runs a bounded sweep over generation settings and logs latency, memory, output path, prompt, model backend, and failure reason. These measurements are the basis for scheduling.
-
-### Evaluator
-The evaluator checks whether the output is nonblank, whether frames change over time, whether the video is too noisy, and whether it meets the latency budget. The final quality proxy combines nonblankness, motion, sharpness, and stability.
-
-### Predictor
-V-Scale trains lightweight predictors from profiling data. The predictor estimates latency and quality from features such as steps, resolution, frames, precision, offload mode, prompt category, and model backend.
-
-### Scheduler
-The scheduler chooses the best valid configuration that satisfies the latency and memory budget. It uses the measured Pareto frontier from profiled runs, with predictor outputs used to summarize how configuration features explain latency and quality.
-
-## Baselines
-We compare against:
-1. Model default preset
-2. Naive fast preset
-3. Uniform scaling of parameters until the budget is met
-4. Best observed profiled configuration under budget
-5. V-Scale scheduler
-We also include deliberately bad controls, such as blank, static, and random-noise videos, to verify that the evaluator catches trivial failures.
-
-## Implemented Components
-1. Measurement harness with dummy outputs, metadata, metrics, Pareto selection, and plots
-2. Real-model backends for LTX-Video and CogVideoX-2B
-3. Profiling sweep over steps, frames, resolution, precision, and offload mode
-4. Lightweight latency and quality predictors trained from profiling data
-5. Budget-aware scheduler
-6. Fixed-preset comparison and bottleneck analysis
-
-## Evaluation
-We evaluate:
-- mean and p95 latency
-- peak GPU memory when available
-- budget error
-- output validity
-- quality proxy
-The final figures and tables include:
-- quality-latency Pareto curve
-- fixed-preset comparison table
-- predictor summary
-- bottleneck analysis
-- CPU-offload ablation
-- prompt examples and qualitative frames
-
-## Definition Of Success
-The project succeeds if the end-to-end system profiles video generation runs, builds a useful quality-latency frontier, predicts latency well enough to support budget-aware scheduling, and selects configurations that improve quality over fixed presets under matched budgets.
-
-## Final Results
-
-Generated run artifacts are in `outputs_final/`; analysis reports, metrics, and plots are in `analysis/`.
-
-V-Scale profiles real LTX-Video and CogVideoX-2B generations on the same Modal L40S GPU, evaluates validity and quality, builds Pareto frontiers, and schedules the best valid configuration under each prompt-budget case.
-
-### Evaluation Snapshot
-| Item | Result |
-|---|---:|
+| Result | Value |
+| --- | ---: |
 | Profiled video runs | 54 |
 | Valid video runs | 54 |
 | Prompt-budget scheduling decisions | 24 |
 | Decisions with a fitting fixed-preset baseline | 18 |
 | V-Scale wins / ties / losses | 17 / 1 / 0 |
-| Mean quality gain over best fitting preset | +0.0549 |
+| Mean quality gain over best fitting fixed preset | +0.0549 |
 
-### Main Findings
-- Latency and memory constraints change which model/configuration is competitive.
-- Denoising work over steps, frames, and pixels is the main latency driver.
-- CogVideoX CPU offload reduces GPU memory use but increases latency.
-- Most valid configurations are dominated once latency and quality are evaluated jointly.
-- Within the measured configuration space, V-Scale outperforms fixed presets by adapting to prompt and budget.
+Main findings:
 
-### Key Artifacts
+- Latency constraints change which configurations are competitive: 49 of 54 profiled configurations are dominated once latency and quality are considered together.
+- Denoising work is the main latency driver. The estimated work term `steps x width x height x frames` correlates strongly with latency for both CogVideoX-2B and LTX-Video.
+- CPU offload creates a memory-latency tradeoff. In the CogVideoX ablation, offload reduced peak GPU memory from 18.8 GB to 11.1 GB, but increased latency from 16.5 s to 22.1 s on average.
+- Fixed presets can be misleading because they commit to one point in the tradeoff space. V-Scale adapts the model/configuration choice to the prompt and budget.
+
+## System
+
+V-Scale has four stages:
+
+1. **Profile** model/configuration runs on fixed hardware.
+2. **Evaluate** each generated video for validity, latency, memory, and a simple quality proxy.
+3. **Analyze** Pareto frontiers, bottlenecks, and predictor fit.
+4. **Schedule** the highest-quality valid configuration under the requested budget.
+
+Formally, for prompt `p`, latency budget `B`, hardware `H`, and candidate set `C`, V-Scale selects:
+
+```text
+c* = argmax quality(c)
+     subject to latency(c, H) <= B
+```
+
+When memory is constrained, the selected configuration must also fit the available GPU memory.
+
+## Inputs And Outputs
+
+Inputs:
+
+- text prompt
+- latency budget
+- optional memory constraint
+- hardware target
+- candidate model/configuration set
+
+Outputs:
+
+- selected model/configuration
+- generated video and run metadata
+- latency and peak-memory measurements
+- validity and quality metrics
+- Pareto frontier and budget-selection tables
+
+## Prompt Suite
+
+The final evaluation uses three fixed prompts in `configs/prompts.json`:
+
+- `static_landscape`: low motion, spatial detail
+- `walking_person`: medium motion, temporal consistency
+- `fast_action`: high motion, motion quality
+
+These prompts are intentionally small. They cover different behavior: static detail, ordinary motion, and faster motion.
+
+## Evaluation Metrics
+
+The evaluator writes one row per generated run. The main fields are:
+
+- `latency_seconds`: end-to-end generation time
+- `peak_memory_mb`: peak GPU memory when available
+- `spatial_std`: contrast / nonblankness check
+- `temporal_delta`: frame-to-frame change
+- `sharpness_score`: local image variation
+- `stability_score`: penalty for excessive flicker/noise
+- `quality_proxy`: reference-free score used for scheduling comparisons
+- `valid_video`: validity gate for blank, static, or noisy outputs
+
+The quality proxy is not meant to replace human judgment. We use it as a consistent metric for comparing runs inside this profiled sweep.
+
+## Repository Organization
+
+- `configs/`: prompt and sweep configuration files
+- `scripts/`: generation, evaluation, scheduling, plotting, and analysis scripts
+- `analysis/`: derived metrics, Pareto frontiers, predictor outputs, plots, and reports
+- `analysis/model_comparison/`: final cross-model metrics and scheduler comparisons
+- `analysis/bottleneck/`: controlled bottleneck experiments and report
+- `analysis/offload_test/`: CogVideoX CPU-offload ablation
+- `analysis/optimization/`: implementation optimization notes
+- `outputs_final/`: final generated run artifacts when present locally
+- `outputs/`, `outputs_v2/`: archived earlier runs kept for provenance
+
+Large generated frame directories are not needed for the analysis tables and can be kept outside Git. The results used in the report are summarized in `analysis/`.
+
+## Important Artifacts
+
 - Final merged metrics: `analysis/model_comparison/metrics.csv`
-- Fixed-preset comparison: `analysis/model_comparison/fixed_preset_comparison.csv`
-- Prompt-budget scheduler decisions: `analysis/model_comparison/prompt_budget_selections.csv`
-- Bottleneck analysis: `analysis/bottleneck/bottleneck_experiments.md`
-- CPU-offload ablation: `analysis/offload_test/offload_comparison.md`
-- Final presentation source: `slides/vscale_final_current_data.md`
+- Pareto frontier: `analysis/model_comparison/pareto_frontier.csv`
+- Prompt-budget selections: `analysis/model_comparison/prompt_budget_selections.csv`
+- Fixed-preset comparison: `analysis/model_comparison/fixed_preset_comparison.md`
+- Final results notes: `analysis/model_comparison/final_results_notes.md`
+- Bottleneck report: `analysis/bottleneck/bottleneck_report.md`
+- Bottleneck experiments: `analysis/bottleneck/bottleneck_experiments.md`
+- CPU-offload comparison: `analysis/offload_test/offload_comparison.md`
+- Predictor summary: `analysis/model_comparison/predictor.json`
 
-## Risks
-### Limited Compute
-Some video models may exceed available GPU memory. The backend is flexible, uses short clips and modest resolutions, and treats failed configurations as useful profiling data.
+## Reproducing The Analysis
 
-### Noisy Quality Metrics
-Automated video metrics may not match human judgment. The current evaluator uses sanity checks and a simple quality proxy, so claims are limited to the measured proxy rather than subjective visual quality.
+Evaluate a run manifest:
 
-### Runtime Variance
-Latency can vary across repeated runs. The final analysis uses measured profiling data and treats large latency differences as stronger evidence than small differences.
+```bash
+python3 scripts/evaluate_outputs.py \
+  --manifest outputs_final/ltx_video/manifest.csv \
+  --out analysis/ltx_video/eval
+```
 
-### Predictor Overfitting
-The profiling table is small. Scheduler claims are therefore kept inside the profiled configuration space rather than extrapolated to unseen model settings.
+Compute the Pareto frontier and budget selections:
+
+```bash
+python3 scripts/pareto_select.py \
+  --metrics analysis/model_comparison/metrics.csv \
+  --out analysis/model_comparison
+```
+
+Train the lightweight predictor:
+
+```bash
+python3 scripts/train_predictor.py \
+  --metrics analysis/model_comparison/metrics.csv \
+  --out analysis/model_comparison/predictor.json
+```
+
+Compare V-Scale against fixed presets:
+
+```bash
+python3 scripts/compare_fixed_presets.py \
+  --metrics analysis/model_comparison/metrics.csv \
+  --out analysis/model_comparison
+```
+
+Generate bottleneck tables:
+
+```bash
+python3 scripts/summarize_bottlenecks.py \
+  --metrics analysis/model_comparison/metrics.csv \
+  --out analysis/bottleneck/bottleneck_experiments.md
+```
+
+## Main Scripts
+
+- `scripts/run_modal_video_sweep.py`: run LTX-Video or CogVideoX sweeps on Modal
+- `scripts/evaluate_outputs.py`: compute validity and quality metrics
+- `scripts/pareto_select.py`: compute Pareto frontier and budget selections
+- `scripts/train_predictor.py`: train linear latency and quality predictors
+- `scripts/schedule_config.py`: choose a configuration under a latency budget
+- `scripts/compare_fixed_presets.py`: compare scheduler choices to fixed presets
+- `scripts/analyze_final_results.py`: generate final cross-model analysis artifacts
+- `scripts/summarize_bottlenecks.py`: summarize controlled bottleneck sweeps
+- `scripts/plot_pareto_dominated.py`: plot dominated configurations and Pareto frontier
+- `scripts/plot_offload_tradeoff.py`: plot CPU-offload memory/latency tradeoff
+
+## Limitations
+
+- The sweep is small, so the conclusions are limited to the prompts and configurations we measured.
+- The quality metric is a proxy. It is useful for relative comparisons here, but it is not a full perceptual or semantic video metric.
+- Latency can vary across runs. We focus on larger differences and controlled one-variable sweeps.
+- V-Scale optimizes configuration selection at the serving layer. It does not modify model kernels or train new video models.
 
 ## References
-- HuggingFace Diffusers: Video generation: https://huggingface.co/docs/diffusers/v0.33.1/en/using-diffusers/text-img2vid
-- HuggingFace Diffusers: Memory optimization: https://huggingface.co/docs/diffusers/en/optimization/memory
-- OpenAI CLIP: https://openai.com/research/clip
-- CLIP code: https://github.com/openai/CLIP
-- DOVER: Disentangled Objective Video Quality Evaluator: https://github.com/VQAssessment/DOVER
-- VBench: Comprehensive Benchmark Suite for Video Generative Models: https://huggingface.co/papers/2311.17982
-- VBench++: Comprehensive and Versatile Benchmark Suite for Video Generative Models: https://huggingface.co/papers/2411.13503
+
+- HuggingFace Diffusers video generation documentation: https://huggingface.co/docs/diffusers/v0.33.1/en/using-diffusers/text-img2vid
+- HuggingFace Diffusers memory optimization documentation: https://huggingface.co/docs/diffusers/en/optimization/memory
+- LTX-Video: https://github.com/Lightricks/LTX-Video
+- CogVideoX: https://github.com/THUDM/CogVideo
+- VBench: https://huggingface.co/papers/2311.17982
