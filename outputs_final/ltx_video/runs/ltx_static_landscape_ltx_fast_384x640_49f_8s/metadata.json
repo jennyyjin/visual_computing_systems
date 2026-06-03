@@ -1,0 +1,26 @@
+{
+  "run_id": "ltx_static_landscape_ltx_fast_384x640_49f_8s",
+  "model": "ltx",
+  "model_id": "Lightricks/LTX-Video",
+  "prompt_id": "static_landscape",
+  "prompt": "A photorealistic quiet mountain lake at sunrise, soft mist drifting over the water, pine trees reflected clearly, gentle cinematic camera push-in, stable natural lighting, no text or logos",
+  "negative_prompt": "text, logo, watermark, low quality, distorted reflections, flicker, sudden camera shake",
+  "seed": 42,
+  "config": {
+    "config_id": "ltx_fast_384x640_49f_8s",
+    "steps": 8,
+    "width": 640,
+    "height": 384,
+    "frames": 49,
+    "precision": "bfloat16",
+    "guidance_scale": 3.0,
+    "offload_mode": "none",
+    "fps": 24
+  },
+  "latency_seconds": 1.173695,
+  "model_load_seconds": 15.845083,
+  "peak_memory_mb": 14544.9,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs_v3/ltx_video/runs/ltx_static_landscape_ltx_fast_384x640_49f_8s/video.mp4",
+  "frames_dir": "outputs_v3/ltx_video/runs/ltx_static_landscape_ltx_fast_384x640_49f_8s/frames"
+}

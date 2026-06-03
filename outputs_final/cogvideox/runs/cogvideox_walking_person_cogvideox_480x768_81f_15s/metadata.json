@@ -1,0 +1,26 @@
+{
+  "run_id": "cogvideox_walking_person_cogvideox_480x768_81f_15s",
+  "model": "cogvideox",
+  "model_id": "THUDM/CogVideoX-2b",
+  "prompt_id": "walking_person",
+  "prompt": "A photorealistic person in a red jacket walking across a city crosswalk in daylight, natural gait, consistent body shape, cars waiting in the background, subtle handheld camera motion, no text or logos",
+  "negative_prompt": "text, logo, watermark, extra limbs, warped face, duplicated person, flicker, sudden camera shake",
+  "seed": 123,
+  "config": {
+    "config_id": "cogvideox_480x768_81f_15s",
+    "steps": 15,
+    "width": 768,
+    "height": 480,
+    "frames": 81,
+    "precision": "float16",
+    "guidance_scale": 6.0,
+    "offload_mode": "model_cpu_offload",
+    "fps": 16
+  },
+  "latency_seconds": 72.614692,
+  "model_load_seconds": 5.77211,
+  "peak_memory_mb": 11066.21,
+  "output_format": "ppm_frame_directory",
+  "video_path": "outputs_v3/cogvideox/runs/cogvideox_walking_person_cogvideox_480x768_81f_15s/video.mp4",
+  "frames_dir": "outputs_v3/cogvideox/runs/cogvideox_walking_person_cogvideox_480x768_81f_15s/frames"
+}
